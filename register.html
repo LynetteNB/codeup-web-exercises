@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register New User</title>
+</head>
+<body>
+    <h1>Register for our membership!</h1>
+    <form method="POST" action="https://hookb.in/EJOx04Ox">
+        <fieldset>
+            <label>First Name:<input autofocus name="first_name" type="text" id="first_name" required></label><br>
+            <label>Middle Name:<input name="middle_name" type="text" id="middle_name"></label><br>
+            <label>Last Name:<input name="last_name" type="text" id="last_name" required></label><br>
+            <label>Email:<input name="email" type="email" id="email" required></label><br>
+            <label>Password:<input name="password" type="password" id="password" required></label><br>
+            <label>Username:<input name="username" type="text" id="username" required></label><br>
+            <label>Birthdate:<input name="birthdate" type="date" id="birthdate" required></label><br>
+        </fieldset>
+        <fieldset>
+            <div><p>What operating system(s) do you use?</p>
+                <label><input type="checkbox" name="op[]" id="linux" value="linux">Linux</label>
+                <label><input type="checkbox" name="op[]" id="osx" value="osx">OS X</label>
+                <label><input type="checkbox" name="op[]" id="windows" value="windows">Windows</label>
+                <label><input type="checkbox" name="op[]" id="os2" value="os2">OS2</label>
+                <label><input type="checkbox" name="op[]" id="chromeos" value="chromeos">ChromeOS</label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div><p>What programming languages do you know?</p>
+                <label><input type="checkbox" name="pl[]" id="java" value="java">Java</label>
+                <label><input type="checkbox" name="pl[]" id="javas" value="javas">Java Script</label>
+                <label><input type="checkbox" name="pl[]" id="cpp" value="cpp">C++</label>
+                <label><input type="checkbox" name="pl[]" id="python" value="python">Python</label>
+                <label><input type="checkbox" name="pl[]" id="php" value="php">PHP</label>
+                <label><input type="checkbox" name="pl[]" id="cs" value="cs">C#</label>
+                <label><input type="checkbox" name="pl[]" id="other" value="other">Other</label>
+            </div>
+        </fieldset>
+        <input type="submit">
+    </form>
+</body>
+</html>
