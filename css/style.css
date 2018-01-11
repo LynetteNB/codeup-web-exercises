@@ -1,0 +1,102 @@
+header {
+    text-align: center;
+}
+body {
+    background: floralwhite;
+    background-image: url("../IMG/diamond-flower.png");
+    background-size: auto;
+    color: #725752;
+    font-family: 'Century Gothic', 'Open Sans Condensed', sans-serif;
+    font-size: 1em;
+}
+
+header>h1 {
+    font-size: 2.5em;
+}
+h1, h2 {
+    color: darkgoldenrod;
+    text-decoration: underline;
+    padding: .5em;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: lower-roman;
+}
+
+th {
+    color: #878E88;
+}
+
+tr, td {
+    border-style: ridge;
+    border-color: #725752;
+    border-width: thin;
+    text-align: center;
+    padding: .15em;
+    font-size: 1em;
+}
+
+th {
+    border-style: ridge;
+    border-color: #878E88;
+    border-width: medium;
+    font-size: 1.15em;
+    font-weight: bold;
+    padding: .15em;
+}
+hr {
+    background-image: url("../img/divider.png");
+    background-size: 20em;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-width: 1.25em;
+    border-color: transparent;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    clear: both;
+}
+
+article {
+    padding: 1em;
+    margin: 3em;
+    background: floralwhite;
+    opacity: .8;
+}
+
+.column {
+    display: flex;
+    justify-content: center;
+}
+
+section {
+    max-width:30em;
+    padding: .5em;
+    margin: .5em;
+    overflow: auto;
+}
+
+article h2 {
+    text-align: center;
+}
+
+img {
+    width: 500px;
+}
+
+a:link {
+    color: darkgoldenrod;
+}
+a:visited {
+    color: #725752;
+}
+a:active {
+    color: #878E88;
+}
+a:hover {
+    color: darkkhaki;
+}
