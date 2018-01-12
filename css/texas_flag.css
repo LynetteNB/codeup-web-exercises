@@ -1,0 +1,24 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
+.blue-box {
+    height: 100%;
+    width: 33%;
+    background-color: #002868;
+    max-height: auto;
+    position: absolute;
+}
+.box {
+    height: 50%;
+    width: 67%;
+    position: absolute;
+    margin-left: 33%;
+}
+.red {
+    background-color: #BF0A30;
+    transform: translateY(100%);
+}
+.white {
+    background-color: #FFF;
+}
