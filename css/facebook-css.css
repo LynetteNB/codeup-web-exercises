@@ -1,0 +1,63 @@
+header {
+    background: #3D5A96;
+    color: white;
+    height: 5.5rem;
+    width: 100%;
+    position: relative;
+    top: -1.4em;
+    left: 0;
+}
+body {
+    margin: 0;
+}
+a {
+    color: #3D5A96;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+header section {
+    padding: 1rem;
+}
+header button {
+    background: #3859FF;
+    border: 1px solid black;
+    color: white;
+}
+header button:hover {
+    background: #3D5A96;
+}
+article input {
+    font-size: 1rem;
+    padding: .5rem;
+    border-radius: .3rem;
+    margin: .25rem;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    background: #EDF0F5;
+    padding: 0 5rem 1rem 5rem;
+    position: relative;
+}
+.flex-center article {
+    width: 30em;
+    padding: .5rem;
+}
+.small-text {
+    font-size: .7rem;
+}
+.move-right {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+}
+.medium {
+    width: 10rem;
+}
+.long {
+   width: 22rem;
+}
