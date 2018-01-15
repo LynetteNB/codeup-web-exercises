@@ -6,19 +6,61 @@ body {
     height: 100%;
     width: 33%;
     background-color: #002868;
-    max-height: auto;
-    position: absolute;
+    position: absolute; /*Used to have the empty div fill the screen*/
 }
 .box {
     height: 50%;
     width: 67%;
     position: absolute;
-    margin-left: 33%;
+    left: 33%;
 }
 .red {
     background-color: #BF0A30;
-    transform: translateY(100%);
+    top: 50%;
 }
 .white {
     background-color: #FFF;
+    bottom: 50%;
+}
+/*https://codepen.io/fxm90/pen/yOBWVe to create the following pure css star shape*/
+.star {
+    position: relative;
+    top: 25%;
+
+
+    display: inline-block;
+    width: 0;
+    height: 0;
+
+    margin-left: .9em;
+    margin-right: .9em;
+    margin-bottom: 1.2em;
+
+    border-right: .3em solid transparent;
+    border-bottom: .7em solid #FFFFFF;
+    border-left: .3em solid transparent;
+
+    /* Controlls the size of the stars. */
+    font-size: 200px;
+}
+.star:before, .star:after {
+               content: '';
+
+               display: block;
+               width: 0;
+               height: 0;
+
+               position: absolute;
+               top: .6em;
+               left: -1em;
+
+               border-right:  1em solid transparent;
+               border-bottom: .7em  solid #FFF;
+               border-left:   1em solid transparent;
+
+               transform: rotate(-35deg);
+}
+
+.star:after {
+     transform: rotate(35deg);
 }

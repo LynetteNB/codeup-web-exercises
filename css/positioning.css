@@ -1,0 +1,47 @@
+body {
+    font-family: 'Times New Roman', "Century Gothic", sans-serif;
+    margin: 0;
+}
+div {
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    color: white;
+    margin: 50px 50px 0 0;
+    font-weight: bold;
+    float: left;
+    font-size: 15.5px;
+    position: relative;
+}
+div:nth-of-type(3n+1) {
+    clear: both;
+}
+.arrow {
+    position: absolute;
+    bottom: 57px;
+    left: 53px;
+}
+.ribbon {
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+.red {
+    background-color: red;
+}
+.orange {
+    background-color: orange;
+}
+.yellow {
+    background-color: yellow;
+}
+.green {
+    background-color: green;
+}
+.blue {
+    background-color: blue;
+}
+.violet {
+    background-color: violet;
+}

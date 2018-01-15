@@ -1,0 +1,112 @@
+body {
+    text-align: center;
+    font-family: 'Merriweather', 'Helvetica Neue', Arial ,sans-serif;
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333333;
+}
+header {
+    margin: 0;
+    padding: 3em;
+}
+h1 {
+    font-family: 'Meddon', cursive;
+    font-size: 6.5em;
+    margin: 2rem auto 2rem auto;
+}
+h2 {
+    font-size: 2em;
+    font-weight: normal;
+}
+h3 {
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 1.4rem;
+}
+hr {
+    width: 3rem;
+    border: .125rem solid #CD4749;
+    margin: 1rem auto 1rem auto;
+}
+em {
+    font-family: 'Aref Ruqaa', serif;
+    font-style: italic;
+}
+article {
+    padding: 2rem 10rem 1rem 10rem;
+    margin: 0 auto;
+    width: 43em;
+}
+a {
+    color: #DF4749;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    color: #CD4749;
+}
+button {
+    background: #CD4749;
+    border: 1px solid white;
+    border-radius: 3rem;
+    height: 3.5rem;
+    width: 12rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+}
+button:hover {
+    background: #FFFFFF;
+    color: #CD4749;
+}
+iframe {
+    width: 44.5rem;
+    height: 25rem;
+}
+header>a {
+    background: #D97273;
+    border-radius: .15rem;
+    padding: .4rem;
+    position: absolute;
+    text-decoration: underline;
+    top: 1em;
+    right: 1em;
+}
+header a:hover {
+    color:#F4D5D5;
+}
+.flex-center div {
+    text-align: left;
+    margin: .5em;
+    width: 14rem;
+}
+.white {
+    color: white;
+}
+.wonr {
+    background: #CD4749;
+    color: #F0C8C5;
+    padding: 3rem 10rem 5rem 10rem;
+    width: auto;
+}
+.wonr hr {
+    border-color: white;
+}
+.wonr h1,.wonr h2,.wonr h3,.wonr em,.wonr strong,.wonr a, .wonr .comptext {
+    color: #fff;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+.comptext {
+    font-family: 'Space Mono', monospace;
+    font-size: .95rem;
+}
+.smalltext {
+    font-size: .9em;
+}
+.redred {
+    color: #CD4749;
+    background: #F9F2F4;
+}
