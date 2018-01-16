@@ -11,13 +11,12 @@ header {
 body {
     margin: 0;
     color: #333333;
-
 }
 h1 {
     position: relative;
     float: left;
     top: 2rem;
-    left: 12.5rem;
+    left: 15.5rem;
     font-size: 2.5rem;
     margin-top: 0;
 }
@@ -68,6 +67,11 @@ article input {
     border-radius: .3rem;
     margin: .25rem;
 }
+.login-text {
+    font-size: 1rem;
+    padding: .1rem;
+    width: 9rem;
+}
 .center {
     position: relative;
     padding: 1rem 0 1rem 0;
@@ -98,8 +102,8 @@ article input {
 .move-right {
     float: right;
     position: absolute;
-    top: 0;
-    right: 15rem;
+    top: .6rem;
+    right: 12rem;
     display: flex;
 }
 .medium {
@@ -136,10 +140,17 @@ article input {
     background: #6CA559;
     cursor: pointer;
 }
-.white {
+.footer {
     background: white;
+    width: 62rem;
+    margin: 0 auto;
+    padding: 1rem;
 }
-.white div {
-    padding: 1rem .5rem 0 .5rem;
+.flex-left {
+    display: flex;
+    justify-content: left;
+}
+.footer div {
+    padding: .35rem .6rem 0 .6rem;
     margin-bottom: 0;
 }
