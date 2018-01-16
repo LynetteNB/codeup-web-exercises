@@ -44,6 +44,7 @@ a {
 a:hover {
     text-decoration: underline;
     color: #CD4749;
+    cursor: pointer;
 }
 button {
     background: #CD4749;
@@ -58,6 +59,7 @@ button {
 button:hover {
     background: #FFFFFF;
     color: #CD4749;
+    cursor: pointer;
 }
 iframe {
     width: 44.5rem;
@@ -74,6 +76,7 @@ header>a {
 }
 header a:hover {
     color:#F4D5D5;
+    cursor: pointer;
 }
 .flex-center div {
     text-align: left;

@@ -4,11 +4,34 @@ header {
     height: 5.5rem;
     width: 100%;
     position: relative;
-    top: -1.4em;
+    top: 0;
     left: 0;
+    margin-top: 0;
 }
 body {
     margin: 0;
+    color: #333333;
+
+}
+h1 {
+    position: relative;
+    float: left;
+    top: 2rem;
+    left: 12.5rem;
+    font-size: 2.5rem;
+    margin-top: 0;
+}
+h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+h3 {
+    font-size: 1.5rem;
+}
+select {
+    font-size: .85rem;
+    width: 4rem;
+    height: 2rem;
 }
 a {
     color: #3D5A96;
@@ -16,23 +39,44 @@ a {
 }
 a:hover {
     text-decoration: underline;
+    cursor: pointer;
+}
+header a {
+    color: #aaccFF;
 }
 header section {
     padding: 1rem;
 }
 header button {
-    background: #3859FF;
-    border: 1px solid black;
+    background: #4267b2;
+    border: 1px solid #29487d;
+    border-radius: .1rem;
+    font-weight: bold;
     color: white;
+    position: relative;
+    top: .9rem;
+    right: 1rem;
+    padding: .25rem;
 }
 header button:hover {
     background: #3D5A96;
+    cursor: pointer;
 }
 article input {
     font-size: 1rem;
     padding: .5rem;
     border-radius: .3rem;
     margin: .25rem;
+}
+.center {
+    position: relative;
+    padding: 1rem 0 1rem 0;
+}
+.center p {
+    position: absolute;
+    top: 15%;
+    left: 4.5rem;
+    font-size: .95rem;
 }
 .flex-center {
     display: flex;
@@ -42,17 +86,20 @@ article input {
     position: relative;
 }
 .flex-center article {
-    width: 30em;
-    padding: .5rem;
+    width: 28em;
+    padding: 1rem;
 }
 .small-text {
     font-size: .7rem;
+}
+.medium-text {
+    font-size: .85rem;
 }
 .move-right {
     float: right;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15rem;
     display: flex;
 }
 .medium {
@@ -60,4 +107,39 @@ article input {
 }
 .long {
    width: 22rem;
+}
+.bday-move {
+    position: absolute;
+    top: .18rem;
+    left: 13.5rem;
+    width: 10rem;
+}
+.gender {
+    padding: 1.2rem .5rem .5rem .5rem;
+}
+.relative {
+    position: relative;
+}
+.account {
+    background: linear-gradient(#67ae55, #578843);
+    border-color: #3b6e22;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    color: white;
+    height: 2.5rem;
+    width: 13rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: .5rem;
+    box-shadow: inset 0 2px 1px 0 #a4e388;
+}
+.account:hover {
+    background: #6CA559;
+    cursor: pointer;
+}
+.white {
+    background: white;
+}
+.white div {
+    padding: 1rem .5rem 0 .5rem;
+    margin-bottom: 0;
 }
