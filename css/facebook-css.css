@@ -71,6 +71,7 @@ article input {
     font-size: 1rem;
     padding: .1rem;
     width: 9rem;
+    margin: .3rem 0;
 }
 .center {
     position: relative;
@@ -102,7 +103,7 @@ article input {
 .move-right {
     float: right;
     position: absolute;
-    top: .6rem;
+    top: .4rem;
     right: 12rem;
     display: flex;
 }
@@ -127,7 +128,7 @@ article input {
 .account {
     background: linear-gradient(#67ae55, #578843);
     border-color: #3b6e22;
-    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    text-shadow: 0 1px 2px #000;
     color: white;
     height: 2.5rem;
     width: 13rem;
