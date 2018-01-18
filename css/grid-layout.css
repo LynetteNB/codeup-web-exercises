@@ -1,0 +1,39 @@
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.row {
+    width: 100%;
+}
+.row:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+.one-half, .one-third, .one-fourth, .one-sixth, .one-eighth {
+    width: 100%;
+    border: 1px solid black;
+    background: #ccc;
+    float: left;
+    box-sizing: border-box;
+    padding: .2em;
+    margin-bottom: 1em;
+}
+@media screen and (min-width: 768px) {
+    .one-half {
+        width: 50%;
+    }
+    .one-third {
+        width: 33.33%;
+    }
+    .one-fourth {
+        width: 25%;
+    }
+    .one-sixth {
+        width: 16.667%
+    }
+    .one-eighth {
+        width: 12.5%;
+    }
+}
