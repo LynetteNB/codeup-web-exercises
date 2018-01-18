@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+}
+.container {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+row {
+    width: 100%;
+}
+.row:after {
+    clear: both;
+    display: table;
+    content: "";
+}
+img {
+    width: 100%;
+}
+.one-half, .two-thirds, .one-third, .one-fourth, .three-fourths {
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+    padding: .75em;
+}
+.eighth-offset {
+    margin-left: 12.5%;
+}
+.small-text {
+    font-size: .9em;
+}
+.black-bg {
+    background: black;
+    color: white;
+    width: 100%;
+}
+.border {
+    border-top-style: double;
+    border-bottom-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    border-color: #8c8c8c;
+    padding-left: 0;
+    border-width: .4em;
+}
+.black-bg .border {
+    border-color: red;
+}
+@media screen and (min-width: 768px) {
+    .container {
+        width: 80%;
+    }
+    .one-half {
+        width: 50%;
+    }
+    .two-thirds {
+        width: 66.67%;
+    }
+    .one-third {
+        width: 33.33%;
+    }
+    .one-fourth {
+        width: 25%;
+    }
+    .three-fourths {
+        width: 75%;
+    }
+}
