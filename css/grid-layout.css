@@ -11,10 +11,10 @@
     content: "";
     display: table;
 }
-.one-half, .one-third, .one-fourth, .one-sixth, .one-eighth {
+.one-whole, .one-half, .one-third, .one-fourth, .one-sixth, .one-eighth, .two-thirds {
     width: 100%;
-    border: 1px solid black;
-    background: #ccc;
+    /*border: 1px solid black;*/
+    /*background: #ccc;*/
     float: left;
     box-sizing: border-box;
     padding: .2em;
@@ -35,5 +35,8 @@
     }
     .one-eighth {
         width: 12.5%;
+    }
+    .two-thirds {
+        width: 66.67%;
     }
 }
