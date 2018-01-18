@@ -51,10 +51,9 @@ footer>p {
 }
 #social-media-links img {
     box-sizing: border-box;
-    margin: 2%;
 }
 #social-media-links .one-sixth {
-    width: 12.5%;
+    width: 16.666%;
 }
 @media screen and (min-width: 768px) {
     .hidden-on-desktop {
