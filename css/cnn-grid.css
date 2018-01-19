@@ -17,6 +17,16 @@ row {
 img {
     width: 100%;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover, .black-bg a:hover {
+    color: red;
+}
+.black-bg a {
+    color: white;
+}
 .one-half, .two-thirds, .one-third, .one-fourth, .three-fourths {
     width: 100%;
     box-sizing: border-box;
@@ -35,13 +45,16 @@ img {
     width: 100%;
 }
 .border {
-    border-top-style: double;
-    border-bottom-style: none;
-    border-right-style: none;
-    border-left-style: none;
-    border-color: #8c8c8c;
-    padding-left: 0;
-    border-width: .4em;
+    border-top: .4em double #8c8c8c;
+    display: inline-block;
+    height: 16px;
+    vertical-align: bottom;
+}
+.border:after {
+    display: inline-block;
+    width: 100%;
+    content: "";
+    position: absolute;
 }
 .black-bg .border {
     border-color: red;
