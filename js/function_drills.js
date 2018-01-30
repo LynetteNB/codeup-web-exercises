@@ -61,6 +61,8 @@ function isVowel(letter) {
 // Make a function named hasVowels(string) that uses isVowel to check if a string has any vowels
 function hasVowels(string) {
     string = string.toLowerCase();
+    return string.search(/[aeiou]/g) !== -1;
+    //string = string.toLowerCase();
 
     // var i = 0;
     // while (i < string.length) {
@@ -82,7 +84,8 @@ function hasConsonants(string) {
     //     i++;
     // } while (i < string.length)
     // return false;
-    return ;
+    string = string.toLowerCase();
+    return string.search(/[^aeiou]/g) !== -1;
 }
 // Make a function named isCapital(letter)
 function isCapital(letter) {
@@ -90,10 +93,11 @@ function isCapital(letter) {
 }
 // Make a function named hasCapitalLetters(string) that returns if a string has any capitals.
 function hasCapitalLetters(string) {
-    for(var i = 0; i < string.length; i++) {
-        if (isCapital(string[i]) == true) {return console.log(string + " has capital letters.");}
-    }
-    return console.log(string + " does not have any capital letters.");
+    // for(var i = 0; i < string.length; i++) {
+    //     if (isCapital(string[i]) == true) {return console.log(string + " has capital letters.");}
+    // }
+    // return console.log(string + " does not have any capital letters.");
+    return string.search(/[A-Z]/g) !== -1;
 }
 //     Make a function named isLowerCase(letter)
 function isLowerCase(letter) {
@@ -101,12 +105,13 @@ function isLowerCase(letter) {
 }
 // Make a function named hasLowerCase(string) that returns if a string has any lower cased
 function hasLowerCase(string) {
-    var i = 0;
-    while(i < string.length) {
-        if(isLowerCase(string[i]) == true) {return console.log(string + " has lower case letters.");}
-        i++;
-    }
-    return console.log(string + " does not have any lower case letters.");
+    // var i = 0;
+    // while(i < string.length) {
+    //     if(isLowerCase(string[i]) == true) {return console.log(string + " has lower case letters.");}
+    //     i++;
+    // }
+    // return console.log(string + " does not have any lower case letters.");
+    return string.search(/[a-z]/g) !== -1;
 }
 // Make a function named isSpace(letter) that returns if a character is a space character
 function isSpace(letter) {
@@ -114,12 +119,13 @@ function isSpace(letter) {
 }
 // Make a function named hasSpaces(string) that returns if a string has any space characters
 function hasSpaces(string) {
-    var i = 0;
-    do {
-        if (isSpace(string[i]) == true) {return console.log("'" + string + "' has spaces.")}
-        i++;
-    } while (i < string.length)
-    return console.log("'"+ string + "' does not have spaces.");
+    // var i = 0;
+    // do {
+    //     if (isSpace(string[i]) == true) {return console.log("'" + string + "' has spaces.")}
+    //     i++;
+    // } while (i < string.length)
+    // return console.log("'"+ string + "' does not have spaces.");
+    return string.search(/\s/g) >=0;
 }
 // Make a function named isZero(number)
 function isZero(number) {
@@ -188,11 +194,12 @@ function remainder(a, b) {
 }
 // Make a function named isBlank(input) that determines if a given input is spaces, newline characters, or tabs.
 function isBlank(input) {
-    var trueCounter = 0;
-    for (var i = 0; i < input.length; i++) {
-        if (input[i] == "\n" || input[i] == "\t" || input[i] == " ") {trueCounter++;}
-    }
-    return trueCounter == input.length ? true : false;
+    // var trueCounter = 0;
+    // for (var i = 0; i < input.length; i++) {
+    //     if (input[i] == "\n" || input[i] == "\t" || input[i] == " ") {trueCounter++;}
+    // }
+    // return trueCounter == input.length;
+    return input.trim() == "";
 }
 //     Make a function named isNumeric(input) returns true/false if the input is a number or numeric string
 function isNumeric(input) {

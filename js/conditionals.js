@@ -16,7 +16,7 @@
  * Can you refactor your code to use functions?
  ------------------------------------------------------------------*/
 // var yesNumber = confirm("Would you like to enter a number?");
-//  if (yesNumber == true) {
+//  if (yesNumber) {
 //      var num = prompt("Please enter a number below:");
 //      num = Number(num);
 //      var plus100 = num + 100;
@@ -24,30 +24,29 @@
 //          num%2==0 ? alert("This number is even.") : alert("This number is odd.");
 //          alert(num + " + 100 is " + plus100);
 //          num>=0 ? alert("This number is positive.") : alert("This number is negative.");
-//      }
-//      else {
+//      } else {
 //          alert("That is not a number.")
 //      }
 //  }
 // ------------Refactored using functions.-----------------------
-// var yesNumber = confirm("Would you like to enter a number?");
-// if (yesNumber == true) {
-//     var num = prompt("Please enter a number below:");
-//     isNumber(num);
-// }
-//
-// function isNumber(num) {
-//     num = Number(num);
-//     var plus100 = num + 100;
-//     if (isNaN(num) === false) {
-//         num%2==0 ? alert("This number is even.") : alert("This number is odd.");
-//         alert(num + " + 100 is " + plus100);
-//         num>=0 ? alert("This number is positive.") : alert("This number is negative.");
-//     }
-//     else {
-//         alert("That is not a number.")
-//     }
-// }
+var yesNumber = confirm("Would you like to enter a number?");
+if (yesNumber == true) {
+    var num = prompt("Please enter a number below:");
+    isNumber(num);
+}
+
+function isNumber(num) {
+    num = parseFloat(num);
+    var plus100 = num + 100;
+    if (isNaN(num)) {
+        alert("That is not a number.")
+    }
+    else {
+        num%2==0 ? alert(num + " is even.") : alert(num + " is odd.");
+        alert(num + " + 100 is " + plus100);
+        num>=0 ? alert(num + " is positive.") : alert(num + "is negative.");
+    }
+}
 
 /* ########################################################################## */
 
@@ -71,28 +70,28 @@
 function analyzeColor(color) {
     color = color.toLowerCase();
     if (color == 'red') {
-        console.log("Apples are red and yummy!")
+        return "Apples are red and yummy!";
     }
     else if (color == 'orange') {
-        console.log("Oranges are orange and citrus-y.")
+        return "Oranges are orange and citrus-y.";
     }
     else if (color == 'yellow') {
-        console.log("Bananas are yellow on the outside!")
+        return "Bananas are yellow on the outside!";
     }
     else if (color == 'green') {
-        console.log("Limes are green and sour!")
+        return "Limes are green and sour!";
     }
     else if (color == 'blue') {
-        console.log("Blueberries are blue and delicious with yogurt!")
+        return "Blueberries are blue and delicious with yogurt!";
     }
     else if (color == 'indigo') {
-        console.log("Indigo is a pretty, deep shade of purple.")
+        return "Indigo is a pretty, deep shade of purple.";
     }
     else if (color == 'violet') {
-        console.log("Violets are very pretty flowers!")
+        return "Violets are very pretty flowers!";
     }
     else {
-        console.log(color + " is not a valid color choice.")
+        return color + " is not a valid color choice.";
     }
 }
 
@@ -141,7 +140,7 @@ function analyzeColorSwitch(color) {
             return "Violets are very pretty flowers!";
             break;
         default:
-            return color + " is not a valid color choice.";
+            return color[0].toUpperCase() + color.substring(1, color.length) + " is not a valid color choice.";
             break;
     }
 }
@@ -197,7 +196,7 @@ function calculateTotal(luckyNum, totalAmt) {
             return 0;
             break;
         default:
-            return "That is not a valid lucky number!";
+            return totalAmt;
             break;
     }
 }
@@ -211,12 +210,37 @@ function calculateTotal(luckyNum, totalAmt) {
 // Generate a random number between 0 and 6
 var luckyNumber = Math.floor(Math.random() * 6);
 var bill = prompt("What is your total bill?");
-if (luckyNumber == 0) {
-    alert("Your lucky number is " + luckyNumber + "! Which means you will have to pay the full price of $" + calculateTotal(luckyNumber, bill).toFixed(2) + ".");
-} else if (luckyNumber == 6) {
-    alert(calculateTotal(luckyNumber, bill));
-} else if (luckyNumber == 5) {
-    alert("Your lucky number is " + luckyNumber + "! Which means instead of $" + bill + ", you will pay $" + calculateTotal(luckyNumber, bill) + " and get it free!");
-} else {
-    alert("Your lucky number is " + luckyNumber + "! Which means instead of $" + bill + ", you will only pay $" + calculateTotal(luckyNumber, bill).toFixed(2) + "!");
+if (bill) {
+    if (luckyNumber == 0) {
+        alert("Your lucky number is " + luckyNumber + "! Which means you will have to pay the full price of $" + calculateTotal(luckyNumber, bill) + ".");
+    } else if (luckyNumber == 5) {
+        alert("Your lucky number is " + luckyNumber + "! Which means instead of $" + bill + ", you will pay $" + calculateTotal(luckyNumber, bill) + " and get it free!");
+    } else {
+        alert("Your lucky number is " + luckyNumber + "! Which means instead of $" + bill + ", you will only pay $" + calculateTotal(luckyNumber, bill).toFixed(2) + "!");
+    }
+}
+
+// Bonus 1.
+// Write a function (or multiple functions) that will return
+// a boolean depending on if the string value passed to it
+// as an argument is the name of a day of the week that starts with a T.
+//     Otherwise, it should return false.
+//     Example: dayOfTheWeekStartsWithT("Monday")     => returns false
+// Example: dayOfTheWeekStartsWithT("Tuesday")     => returns true
+// Example: dayOfTheWeekStartsWithT("Tommy")     => returns false
+//
+function dayOfTheWeekStartsWithT(day) {
+    day = day.toLowerCase();
+    return (day == 'tuesday' || day == 'thursday');
+}
+// Bonus 2.
+// Write a function, isValidPassword, that takes in a string argument and returns true or false
+// depending on whether or not all the following conditions are true:
+// 1) Must be 6 characters long (only for the sake of this exercise, NOT a best practice)
+// 2) Contains at least one letter and one number
+// 3) Contains at least one upper and one lower case letter
+// 4) Only comprised of letters and numbers
+// 5) EXTRA BONUS: is not the same forwards and backwards
+function isValidPassword(password) {
+    return (password.length == 6 && password.search(/[a-z]/g) !== -1 && password.search(/[0-9]/g) !== -1 && password.search(/[A-Z]/g) !== -1 && password.search(/\W/g) == -1 && password !== password.split("").reverse().join(""));
 }
