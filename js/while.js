@@ -15,8 +15,8 @@ function sellingCones() {
             console.log("Bought " + conesBought + " cone(s)!");
             allCones -= conesBought;
             console.log(allCones + " cone(s) left!");
-        } else if(conesBought > allCones) {
-            console.log("Cannot sell you " + conesBought + " cone(s) I only have " + allCones + "left!");
+        } else {
+            console.log("Cannot sell you " + conesBought + " cone(s) I only have " + allCones + " left!");
         }
     } while (allCones > 0);
     console.log("Yay! I sold all the cones!");
