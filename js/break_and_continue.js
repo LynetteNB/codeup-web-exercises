@@ -14,7 +14,7 @@ function skipNumber() {
                 }
             } break;
         } else {
-            alert("Please enter a valid odd number!");;
+            alert("Please enter a valid odd number!");
         }
     }
 }
