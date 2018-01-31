@@ -1,19 +1,20 @@
 function skipNumber() {
     var number;
     while (number = prompt("Please enter an odd number from 1-50")) {
+        //If user presses cancel
         if (number == null) {
             break;
-        } else if (number >=1 && number <=50 && number%2==1){
-            for(var i = 1; i <= 50 && number; i++) {
+        } //When user inputs valid odd number, nested loop displays odd number list and skips user inputted number
+        else if (number >=1 && number <=50 && number%2==1){
+            for(var i = 1; i <= 50 && number; i+=2) {
                 if (i == number) {
                     console.log("Yikes! Skipping this number: " + i);
                     continue;
                 }
-                if (i%2==1) {
-                    console.log("Here is an odd number: " + i)
-                }
+                console.log("Here is an odd number: " + i);
             } break;
-        } else {
+        } //If user does not input a valid number, alerts them that they have not and will loop to be prompted again
+        else {
             alert("Please enter a valid odd number!");
         }
     }
