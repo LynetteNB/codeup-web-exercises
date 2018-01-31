@@ -19,23 +19,23 @@
      * Create log statements that will print each of the names individually by
      * accessing each element's index.
      */
-    console.log(names[0]);
-    console.log(names[1]);
-    console.log(names[2]);
-    console.log(names[3]);
+    console.log("Manually logging each name using index: " + names[0]);
+    console.log("Manually logging each name using index: " + names[1]);
+    console.log("Manually logging each name using index: " + names[2]);
+    console.log("Manually logging each name using index: " + names[3]);
     /**
      * TODO:
      * Write some code that uses a for loop to log every item in the names
      * array.
      */
     for(var i = 0; i < names.length; i++) {
-        console.log(names[i]);
+        console.log("For Loop: " + names[i]);
     }
     /**
      * TODO:
      * Refactor your above code to use a `forEach` loop
      */
-    names.forEach(function(element) {console.log(element);});
+    names.forEach(function(element) {console.log("forEach method: " + element);});
     /**
      * TODO:
      * Create the following three functions, each will accept an array and
