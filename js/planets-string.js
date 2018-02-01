@@ -39,8 +39,8 @@
 //     input = 5553434, output = 555-3434
 //     input = 18005552323, output = 1-800-555-2323
 //
-//     Extra Challenge: account for invalid characters
-//     Extra Challenge: if the input is already formatted, output the unformatted version
+//     DONE Extra Challenge: account for invalid characters
+//     DONE Extra Challenge: if the input is already formatted, output the unformatted version
 //     Extra Challenge: allow the parser to accept letters and convert them to the correct numbers
     function parsePhoneNumber (numberString) {
         var numberArray = numberString.split("");
@@ -49,7 +49,7 @@
             console.log(parsing7and10Digits(numberArray));
         } else if (numberArray.length == 11 && checkingCharacters(numberArray)) {
             console.log(numberArray.shift() + "-" + parsing7and10Digits(numberArray));
-        } else if (checkingIfFormatted(numberArray)) {
+        } else if (checkingIfFormatted(numberArray) && checkingCharacters(numberArray)) {
             console.log(numberArray.join(""));
         } else {
             console.log("Please enter a valid 7, 10, or 11 digit phone number.");
@@ -66,6 +66,11 @@
         if (numberArray.length == 7 || numberArray.length == 10 || numberArray.length == 11) {
             numberArray.forEach(function (el) {
                 /[\d]/.test(el) ? counter++ : false
+            });
+        }
+        else if (numberArray.length == 8 || numberArray.length == 12 || numberArray.length == 14) {
+            numberArray.forEach(function (el) {
+                /[\d-]/.test(el)? counter++ : false
             });
         }
         return counter == numberArray.length;
