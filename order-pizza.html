@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Pizza World! - Order Pizza</title>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Pizza world</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Pizza world</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Order Online <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Menu </a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Zip code">
+                    </div>
+                    <button type="button" class="btn btn-default">Search stores near you!</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign-up</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="jumbotron hidden-xs">
+            <h1>Welcome to Pizza World!</h1>
+    </div>
+    <main class="container">
+        <h2>Build your own Pizza!</h2>
+        <hr>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#crust"><span class="badge">1</span> Size and Crust</a></li>
+            <li><a href="#cheese-sauce"><span class="badge">2</span> Cheese and Sauce</a></li>
+            <li><a href="#toppings"><span class="badge">3</span> Toppings</a></li>
+        </ul>
+        <form action="https://hookb.in/voJOe4pk" method="post">
+            <div id="crust" class="panel panel-info">
+                <div class="panel-heading">Choose size and crust</div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Hand Tossed</div>
+                        <div class="panel-body"><p>Garlic-seasoned crust with a rich, buttery taste.</p></div>
+                        <div class="list-group">
+                                <label class="list-group-item list-group-item-info"><input type="radio" name="crust" id="tossed-sm" value="tossed-sm"> Small (10")</label>
+                                <label class="list-group-item list-group-item-info"><input type="radio" name="crust" id="tossed-md" value="tossed-md"> Medium (12")</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Crunchy Thin Crust</div>
+                        <div class="panel-body"><p>Thin enough for the optimum crispy to crunchy ratio.</p></div>
+                        <div class="list-group">
+                            <label class="list-group-item list-group-item-info"><input type="radio" name="crust" id="thin-md" value="thin-md"> Medium (12")</label>
+                            <label class="list-group-item list-group-item-info"><input type="radio" name="crust" id="thin-lg" value="thin-lg"> Large (14")</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="#cheese-sauce"class="btn btn-primary" type="button">Next Step <span class="glyphicon glyphicon-triangle-right"></span></a>
+                </div>
+            </div>
+            <div id="cheese-sauce" class="panel panel-info">
+                <div class="panel-heading">Choose cheese & sauce</div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Cheese?</div>
+                        <div class="panel-info">
+                            <div class="panel-heading">
+                                <strong>Cheese</strong>
+                                <select name="cheese" id="cheese" class="form-control">
+                                    <option value="ch-light">Light</option>
+                                    <option value="ch-normal" selected>Normal</option>
+                                    <option value="ch-extra">Extra</option>
+                                    <option value="ch-double">Double</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Sauce?</div>
+                        <div class="panel-info">
+                            <div class="panel-heading">
+                                <strong>Sauce</strong>
+                                <select name="sauce" id="sauce" class="form-control">
+                                    <option value="sau-tomato">Tomato Sauce</option>
+                                    <option value="sau-marinara">Marinara Sauce</option>
+                                    <option value="sau-bbq">BBQ Sauce</option>
+                                    <option value="sau-alfredo">Alredo Sauce</option>
+                                </select>
+                            </div>
+                            <div class="panel-heading">
+                                <strong>How Much?</strong>
+                                <select name="sauce-amt" id="sauct-amt" class="form-control">
+                                    <option value="sau-amt-light">Light</option>
+                                    <option value="sau-amt-normal" selected>Normal</option>
+                                    <option value="sau-amt-extra">Extra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <div class="btn-group">
+                        <a href="#crust" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-triangle-left"></span> Previous Step</a>
+                        <a href="#toppings" type="button" class="btn btn-primary">Next Step <span class="glyphicon glyphicon-triangle-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info" id="toppings">
+                <div class="panel-heading">Choose toppings</div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Choose meats</div>
+                        <div class="list-group">
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="meats" id="top-m-beef" value="top-m-beef"> Beef</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="meats" id="top-m-ham" value="top-m-ham"> Ham</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="meats" id="top-m-philly" value="top-m-philly"> Philly Steak</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="meats" id="top-m-bacon" value="top-m-bacon"> Bacon</label>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Choose non-meats</div>
+                        <div class="list-group">
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="non-meats" id="top-greenp" value="top-greenp"> Green Peppers</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="non-meats" id="top-mushroom" value="top-mushroom"> Mushrooms</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="non-meats" id="top-onion" value="top-onion"> Onions</label>
+                            <label class="list-group-item list-group-item-info"><input type="checkbox" name="non-meats" id="top-jalapeno" value="top-jalapeno"> Jalapeno Peppers</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-primary" type="submit">Checkout <span class="glyphicon glyphicon-shopping-cart"></span></button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+
+    <script src="bootstrap-3.3.7-dist/js/jquery-2.2.4.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
