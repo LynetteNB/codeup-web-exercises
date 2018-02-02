@@ -112,27 +112,35 @@
      // console.log(books[0].title) // "The Salmon of Doubt"
      // console.log(books[0].author.firstName) // "Douglas"
      // console.log(books[0].author.lastName) // "Adams"
-
-     books.createBook = function(title, authorName) {
-         var authorArray = authorName.split(" ");
-         var book = {author: {firstName: authorArray[0], lastName: authorArray[1]}, title: title, keywords: [], available: true, dateAvailable: "Now"};
-         books.push(book);
-     };
-     books.lend = function(book) {
-         var bookI;
-         this.forEach(function(el, index) {el.title == book ? bookI = index : false});
-         this[bookI].available = false;
-         var date = new Date();
-         date.setDate(date.getDate() + 14);
-         this[bookI].dateAvailable = date;
-     };
-     books.receive = function(book) {
-         var bookI;
-         this.forEach(function(el, index) {el.title == book ? bookI = index : false});
-         this[bookI].dateAvailable = "Now";
-         this[bookI].available = true;
-     };
-
+    /**
+     * Bonus:
+     * - Create a function named `createBook` that accepts a title and author
+     *   name and returns a book object with the properties described
+     *   previously. Refactor your code that creates the books array to instead
+     *   use your function.
+     * - Create a function named `showBookInfo` that accepts a book object and
+     *   outputs the information described above. Refactor your loop to use your
+     *   `showBookInfo` function.
+     */
+    books.createBook = function(title, authorName) {
+        var authorArray = authorName.split(" ");
+        var book = {author: {firstName: authorArray[0], lastName: authorArray[1]}, title: title, keywords: [], available: true, dateAvailable: "Now"};
+        books.push(book);
+    };
+    books.lend = function(book) {
+        var bookI;
+        this.forEach(function(el, index) {el.title == book ? bookI = index : false});
+        this[bookI].available = false;
+        var date = new Date();
+        date.setDate(date.getDate() + 14);
+        this[bookI].dateAvailable = date;
+    };
+    books.receive = function(book) {
+        var bookI;
+        this.forEach(function(el, index) {el.title == book ? bookI = index : false});
+        this[bookI].dateAvailable = "Now";
+        this[bookI].available = true;
+    };
     /**
      * TODO:
      * Loop through the books array and output the following information about
@@ -160,7 +168,7 @@
     function showAllBooks() {
         var bookList = "";
         for(var i = 0; i < books.length; i++) {
-             bookList += "Book # " + (i+1) + "\n" + showBookInfo(books[i]);
+            bookList += "Book # " + (i+1) + "\n" + showBookInfo(books[i]);
         } return bookList;
     }
     function showBookInfo(object) {
@@ -168,22 +176,87 @@
         object.available == true ? isAvailable = "Available" : isAvailable = "Not Available until";
         return "Title: " + object.title + "\nAuthor: " + object.author.firstName + " " + object.author.lastName + "\n" + isAvailable + " " + object.dateAvailable + "\nKeywords: " + object.keywords + "\n-------\n";
     }
-    /**
-     * Bonus:
-     * - Create a function named `createBook` that accepts a title and author
-     *   name and returns a book object with the properties described
-     *   previously. Refactor your code that creates the books array to instead
-     *   use your function.
-     * - Create a function named `showBookInfo` that accepts a book object and
-     *   outputs the information described above. Refactor your loop to use your
-     *   `showBookInfo` function.
-     */
-
-    // function createBook(title, authorName) {
-    //     var authorArray = authorName.split(" ");
-    //     var book = {title: title, author: {firstName: authorArray[0], lastName: authorArray[1]}};
-    //     return book;
-    // }
+    // BONUS 2 (expanding on the books object exercise):
+    // Add a property "keywords" that contains an array of possible genres the book may be categorized by
+    // Add a boolean property "available" and set it to true
+    // Add a dateAvailable property that has a string of the date/time when the book will be available
+    // Add a method lend() that...
+    // - changes the available property to false if it is not already false
+    // - sets the dateAvailable to a date exactly two weeks from when the lend() method is called
+    // (to do this, research the JS Date object and use methods from it in your code)
+    // Add a method receive() that...
+    // - changes the available property to true
+    // - changes the dateAvailable property to the string "now"
+    // BONUS 3 (expanding on the books object exercise):
+    // Create an application to take in user input to build the books array of objects.
+    //     Allow the user to continue adding books or to finish adding books.
+    //     Once the books have been added, output the books array in the console.
+    //     Allow a user to delete a book or a group of books by title or author last name
+    // Allow a user to edit a book by index number in the books array
+    var library = prompt("Please choose what you would like to do from the following choices:\n1: Add a book to your library.\n2. Delete a book from your library.\n3. Edit a book in your library.\n4. Display all books in your library.");
+    while(library) {
+        switch (library) {
+            case "1":
+                userCreateBook();
+                break;
+            case "2":
+                deleteBook();
+                break;
+            case "3":
+                editBook();
+                break;
+            case "4":
+                alert(showAllBooks());
+                break;
+            case null:
+                break;
+            default:
+                alert("That is not a valid option.");
+        }
+        library = prompt("Please choose what you would like to do from the following choices:\n1: Add a book to your library.\n2. Delete a book from your library.\n3. Edit a book in your library.\n4. Display all books in your library.")
+    }
+    function userCreateBook() {
+        do {
+            var bookTitle = prompt("Please tell me the title of the book.");
+            var author = prompt("Please enter the author's first and last name.");
+            books.createBook(bookTitle, author);
+        } while(confirm("Would you like to add more books to your library?"))
+    }
+    function deleteBook() {
+        do {
+            var deleteBook = prompt("Please enter the title of the book or last name of the author of the book you would like to delete:");
+            var noChange = 0;
+            books.forEach(function (book, index) {
+                if (book.title == deleteBook || book.author.lastName == deleteBook) {
+                    books.splice(index, 1);
+                    alert("You have deleted " + book.title);
+                } else {
+                    noChange++;
+                }
+            });
+            if (noChange == books.length) {
+                alert("There is no such book in your library.");
+            }
+        } while (confirm("Would you like to delete more books from your library?"));
+    }
+    function editBook() {
+        do {
+            var editBookIndex = prompt("Please enter the number of the book you would like to edit:\n" + showAllBooks());
+            var toEdit = prompt("What information would you like to edit? Title, Author, or Keywords");
+            toEdit = toEdit.toLowerCase();
+            if (toEdit == "title") {
+                books[editBookIndex - 1].title = prompt("Please enter the new title for the book.");
+            } else if (toEdit == "author") {
+                var author = prompt("Please enter the author's name.");
+                author = author.split(" ");
+                books[editBookIndex - 1].author.firstName = author[0];
+                books[editBookIndex - 1].author.lastName = author[1];
+            } else if (toEdit == "keywords") {
+                var keywords = prompt("Please enter keywords for this array separated by commas.");
+                books[editBookIndex - 1].keywords = keywords.toLowerCase().split(", ");
+            }
+        } while (confirm("Would you like to edit any more book information from your library?"))
+    }
 
 //})();
 // ================================= OBJECTS BONUSES
@@ -213,57 +286,3 @@ var dog ={
         vaccinate: function(newShot) {dog.shotRecords.push({typeOfShot: newShot, date: Date()})}
 }
 
-// BONUS 2 (expanding on the books object exercise):
-// Add a property "keywords" that contains an array of possible genres the book may be categorized by
-// Add a boolean property "available" and set it to true
-// Add a dateAvailable property that has a string of the date/time when the book will be available
-// Add a method lend() that...
-// - changes the available property to false if it is not already false
-// - sets the dateAvailable to a date exactly two weeks from when the lend() method is called
-// (to do this, research the JS Date object and use methods from it in your code)
-// Add a method receive() that...
-// - changes the available property to true
-// - changes the dateAvailable property to the string "now"
-// BONUS 3 (expanding on the books object exercise):
-// Create an application to take in user input to build the books array of objects.
-//     Allow the user to continue adding books or to finish adding books.
-//     Once the books have been added, output the books array in the console.
-//     Allow a user to delete a book or a group of books by title or author last name
-// Allow a user to edit a book by index number in the books array
-while (confirm("Would you like to add books to your library?")) {
-    var bookTitle = prompt("Please tell me the title of the book.");
-    var author = prompt("Please enter the author's first and last name.");
-    books.createBook(bookTitle, author);
-}
-alert(showAllBooks());
-while (confirm("Would you like to delete books from your library?")) {
-    var deleteBook = prompt("Please enter the title of the book or last name of the author of the book you would like to delete:");
-    var noChange = 0;
-    books.forEach(function(book, index) {
-        if (book.title == deleteBook || book.author.lastName == deleteBook) {
-            books.splice(index, 1);
-            alert("You have deleted " + book.title);
-        } else {noChange++;}
-    });
-    if(noChange == books.length) {
-        alert("There is no such book in your library.");
-    }
-}
-alert(showAllBooks());
-while (confirm("Would you like to edit any book information from your library?")) {
-    var editBookIndex = prompt("Please enter the number of the book you would like to edit:\n" + showAllBooks());
-    var toEdit = prompt("What information would you like to edit? Title, Author, or Keywords");
-    toEdit = toEdit.toLowerCase();
-    if (toEdit == "title") {
-        books[editBookIndex-1].title = prompt("Please enter the new title for the book.");
-    } else if (toEdit == "author") {
-        var author = prompt("Please enter the author's name.");
-        author = author.split(" ");
-        books[editBookIndex-1].author.firstName = author[0];
-        books[editBookIndex-1].author.lastName = author[1];
-    } else if(toEdit == "keywords") {
-        var keywords =  prompt("Please enter keywords for this array separated by commas.");
-        books[editBookIndex-1].keywords = keywords.split(", ");
-    }
-}
-alert(showAllBooks());
