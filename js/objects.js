@@ -74,35 +74,64 @@
      */
     var books = [
         {
-           author: {firstName: "J.K.", lastName: "Rowling"},
-           title: "Harry Potter"
+            author: {firstName: "J.K.", lastName: "Rowling"},
+            title: "Harry Potter",
+            keywords: ["fantasy", "magic", "friendship"],
+            available: true,
+            dateAvailable: "Now"
         },
         {
             author: {firstName: "Rick", lastName: "Riordan"},
-            title: "Percy Jackson"
+            title: "Percy Jackson",
+            keywords: ["myths", "greek gods", "pre-teen"],
+            available: true,
+            dateAvailable: "Now"
         },
-        {
-            author: {firstName: "Eoin", lastName: "Colfer"},
-            title: "Artemis Fowl"
-        },
-        {
-            author: {firstName: "Veronica", lastName: "Roth"},
-            title: "Divergent"
-        },
-        {
-            author: {firstName: "Suzanne", lastName: "Collins"},
-            title: "The Hunger Games"
-        }
+        // {
+        //     author: {firstName: "Eoin", lastName: "Colfer"},
+        //     title: "Artemis Fowl",
+        //     keywords: ["genius", "puzzles", "code-breaking"],
+        //     available: true,
+        //     dateAvailable: "Now"
+        // },
+        // {
+        //     author: {firstName: "Veronica", lastName: "Roth"},
+        //     title: "Divergent",
+        //     keywords: ["dystopian", "adolescent"],
+        //     available: true,
+        //     dateAvailable: "Now"
+        // },
+        // {
+        //     author: {firstName: "Suzanne", lastName: "Collins"},
+        //     title: "The Hunger Games",
+        //     keywords: ["dystopian", "love", "death"],
+        //     available: true,
+        //     dateAvailable: "Now"
+        // }
     ];
-     console.log(books[0].title) // "The Salmon of Doubt"
-     console.log(books[0].author.firstName) // "Douglas"
-     console.log(books[0].author.lastName) // "Adams"
+     // console.log(books[0].title) // "The Salmon of Doubt"
+     // console.log(books[0].author.firstName) // "Douglas"
+     // console.log(books[0].author.lastName) // "Adams"
 
-    books.createBook = function(title, authorName) {
-        var authorArray = authorName.split(" ");
-        var book = {author: {firstName: authorArray[0], lastName: authorArray[1]}, title: title};
-        books.push(book);
-    };
+     books.createBook = function(title, authorName) {
+         var authorArray = authorName.split(" ");
+         var book = {author: {firstName: authorArray[0], lastName: authorArray[1]}, title: title, keywords: [], available: true, dateAvailable: "Now"};
+         books.push(book);
+     };
+     books.lend = function(book) {
+         var bookI;
+         this.forEach(function(el, index) {el.title == book ? bookI = index : false});
+         this[bookI].available = false;
+         var date = new Date();
+         date.setDate(date.getDate() + 14);
+         this[bookI].dateAvailable = date;
+     };
+     books.receive = function(book) {
+         var bookI;
+         this.forEach(function(el, index) {el.title == book ? bookI = index : false});
+         this[bookI].dateAvailable = "Now";
+         this[bookI].available = true;
+     };
 
     /**
      * TODO:
@@ -129,10 +158,15 @@
      *      ...
      */
     function showAllBooks() {
+        var bookList = "";
         for(var i = 0; i < books.length; i++) {
-            console.log("Book # " + (i+1) + "\n");
-            showBookInfo(books[i]);
-        }
+             bookList += "Book # " + (i+1) + "\n" + showBookInfo(books[i]);
+        } return bookList;
+    }
+    function showBookInfo(object) {
+        var isAvailable;
+        object.available == true ? isAvailable = "Available" : isAvailable = "Not Available until";
+        return "Title: " + object.title + "\nAuthor: " + object.author.firstName + " " + object.author.lastName + "\n" + isAvailable + " " + object.dateAvailable + "\nKeywords: " + object.keywords + "\n-------\n";
     }
     /**
      * Bonus:
@@ -150,7 +184,86 @@
     //     var book = {title: title, author: {firstName: authorArray[0], lastName: authorArray[1]}};
     //     return book;
     // }
-    function showBookInfo(object) {
-        console.log("Title: " + object.title + "\nAuthor: " + object.author.firstName + " " + object.author.lastName + "\n-------")
-    }
+
 //})();
+// ================================= OBJECTS BONUSES
+// BONUS 1 (create a dog object):
+// The dog object should have properties for:
+// breed (string),
+//     weightInPounds (number),
+//     age (number),
+//     color (string),
+//     sterilized (boolean),
+//     shotRecords (array of objects with properties for date and typeOfShot)
+// The dog object should have methods to:
+//     bark() - will console.log "Woof!"
+// getOlder() - will increase age by 1
+// fix() - will set sterile to true if dog sterilized property is false
+// vaccinate() - takes in an argument for the name of the shot and adds a new shot with the current date to the shotRecords array
+var dog ={
+        breed: "Bulldog",
+        weightInPounds: 20,
+        age: 3,
+        color: "gray",
+        sterilized: false,
+        shotRecords: [{typeOfShot: "rabies", date: "Mon Jan 29 2018 08:13:07 GMT-0600 (CST)"}],
+        bark: function() {console.log("Woof!");},
+        getOlder: function() {this.age += 1;},
+        fix: function() {this.sterilized ? console.log("Dog is already sterilized!") : this.sterilized = true},
+        vaccinate: function(newShot) {dog.shotRecords.push({typeOfShot: newShot, date: Date()})}
+}
+
+// BONUS 2 (expanding on the books object exercise):
+// Add a property "keywords" that contains an array of possible genres the book may be categorized by
+// Add a boolean property "available" and set it to true
+// Add a dateAvailable property that has a string of the date/time when the book will be available
+// Add a method lend() that...
+// - changes the available property to false if it is not already false
+// - sets the dateAvailable to a date exactly two weeks from when the lend() method is called
+// (to do this, research the JS Date object and use methods from it in your code)
+// Add a method receive() that...
+// - changes the available property to true
+// - changes the dateAvailable property to the string "now"
+// BONUS 3 (expanding on the books object exercise):
+// Create an application to take in user input to build the books array of objects.
+//     Allow the user to continue adding books or to finish adding books.
+//     Once the books have been added, output the books array in the console.
+//     Allow a user to delete a book or a group of books by title or author last name
+// Allow a user to edit a book by index number in the books array
+while (confirm("Would you like to add books to your library?")) {
+    var bookTitle = prompt("Please tell me the title of the book.");
+    var author = prompt("Please enter the author's first and last name.");
+    books.createBook(bookTitle, author);
+}
+alert(showAllBooks());
+while (confirm("Would you like to delete books from your library?")) {
+    var deleteBook = prompt("Please enter the title of the book or last name of the author of the book you would like to delete:");
+    var noChange = 0;
+    books.forEach(function(book, index) {
+        if (book.title == deleteBook || book.author.lastName == deleteBook) {
+            books.splice(index, 1);
+            alert("You have deleted " + book.title);
+        } else {noChange++;}
+    });
+    if(noChange == books.length) {
+        alert("There is no such book in your library.");
+    }
+}
+alert(showAllBooks());
+while (confirm("Would you like to edit any book information from your library?")) {
+    var editBookIndex = prompt("Please enter the number of the book you would like to edit:\n" + showAllBooks());
+    var toEdit = prompt("What information would you like to edit? Title, Author, or Keywords");
+    toEdit = toEdit.toLowerCase();
+    if (toEdit == "title") {
+        books[editBookIndex-1].title = prompt("Please enter the new title for the book.");
+    } else if (toEdit == "author") {
+        var author = prompt("Please enter the author's name.");
+        author = author.split(" ");
+        books[editBookIndex-1].author.firstName = author[0];
+        books[editBookIndex-1].author.lastName = author[1];
+    } else if(toEdit == "keywords") {
+        var keywords =  prompt("Please enter keywords for this array separated by commas.");
+        books[editBookIndex-1].keywords = keywords.split(", ");
+    }
+}
+alert(showAllBooks());
