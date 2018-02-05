@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>DOM: Query and Modify</title>
 </head>
-<body>
+<body id = "main">
 
 <h1 id="main-header">Hello World!</h1>
 <ul>
@@ -48,7 +48,7 @@
         }
         // TODO: Set text color of li with dbid = 1 to blue
         for(var i = 0; i < listItems.length; i += 1) {
-            if (listItems[i].getAttribute("data-dbid") == "1") {
+            if(listItems[i].getAttribute("data-dbid") == "1") {
                 listItems[i].style.color = "blue";
             }
         }
@@ -58,6 +58,34 @@
 
         // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
         subParagraphs[0].innerText = "Mission Accomplished!";
+
+        // M BONUS
+        // Create a list maker that confirms with the user if they wish to add an entry to a list.
+        //     If the user confirms, after each new entry, prompt the user for additional
+        //     items and then add them to the HTML of the page. If the user confirms not to add another
+        // item, end the cycle of user dialogue functions and apply styling to the page using JS only.
+
+        //Grocery List header
+        var groceryHeading = document.createElement("h1");
+        groceryHeading.appendChild(document.createTextNode("Grocery List"));
+        //Create the unordered list element
+        var groceryList = document.createElement("ul");
+
+        //Create each list item element from the input of the user
+        var newItem, groceryItem;
+        if (confirm("Would you like to add an item to your grocery list?"))
+        {
+            do {
+                newItem = document.createTextNode(prompt("Please enter the item you would like to add to the list"));
+                groceryItem = document.createElement("li");
+                groceryItem.appendChild(newItem);
+                groceryList.appendChild(groceryItem);
+
+            } while (confirm("Would you like to add another item to your grocery list?"));
+        }
+        //Appended heading and list to the body of the page
+        document.body.appendChild(groceryHeading);
+        document.body.appendChild(groceryList);
     })();
 </script>
 </body>
