@@ -30,6 +30,15 @@
     culpa qui officia deserunt mollit anim id est laborum.
 </p>
 
+<p>
+    <span id="stopWatchMinutes">00</span>:<span id="stopWatchSeconds">00</span>:<span id="stopWatchMilliSeconds">00</span>
+</p>
+<button type="input" id="startTimer">Start Timer</button>
+<button type="input" id="resetTimer">Reset Timer</button>
+<button type="input" id="pauseTimer">Pause Timer</button>
+<div id="timeListDiv"></div>
+
+
 <script>
     (function() {
         "use strict";
@@ -78,26 +87,88 @@
         // item, end the cycle of user dialogue functions and apply styling to the page using JS only.
 
         //Grocery List header
-        var groceryHeading = document.createElement("h1");
-        groceryHeading.appendChild(document.createTextNode("Grocery List"));
-        //Create the unordered list element
-        var groceryList = document.createElement("ul");
+        // var groceryHeading = document.createElement("h1");
+        // groceryHeading.appendChild(document.createTextNode("Grocery List"));
+        // //Create the unordered list element
+        // var groceryList = document.createElement("ul");
+        //
+        // //Create each list item element from the input of the user
+        // var newItem, groceryItem;
+        // if (confirm("Would you like to add an item to your grocery list?"))
+        // {
+        //     do {
+        //         newItem = document.createTextNode(prompt("Please enter the item you would like to add to the list"));
+        //         groceryItem = document.createElement("li");
+        //         groceryItem.appendChild(newItem);
+        //         groceryList.appendChild(groceryItem);
+        //
+        //     } while (confirm("Would you like to add another item to your grocery list?"));
+        //     //Appended heading and list to the body of the page
+        //     document.body.appendChild(groceryHeading);
+        //     document.body.appendChild(groceryList);
+        // }
 
-        //Create each list item element from the input of the user
-        var newItem, groceryItem;
-        if (confirm("Would you like to add an item to your grocery list?"))
-        {
-            do {
-                newItem = document.createTextNode(prompt("Please enter the item you would like to add to the list"));
-                groceryItem = document.createElement("li");
-                groceryItem.appendChild(newItem);
-                groceryList.appendChild(groceryItem);
+    // BONUS Exercise:
+    // Create a stop watch app with the following features:
+    // 1) stop watch display that shows the time to the nearest 100th of a second
+    // 2) start button to start the stop watch
+    // 3) reset button to reset the time to zero
+    // 4) pause button to stop the stop watch
+    // Additional Features:
+    // 1) store a list of times in an aside div that are appended to every time the reset button is hit
+    // 2) add delete buttons for each stored time that removes the time from the aside div
+    // 3) add keyboard events to control starting, pausing, and resetting
 
-            } while (confirm("Would you like to add another item to your grocery list?"));
+        var startTimer = document.getElementById("startTimer");
+        var resetTimer = document.getElementById("resetTimer");
+        var pauseTimer = document.getElementById("pauseTimer");
+        var stopTimer, newTime, deleteButton;
+        var stopWatchMinutes = 0;
+        var stopWatchSeconds = 0;
+        var stopWatchMilliSeconds = 0;
+        var timeListDiv = document.getElementById("timeListDiv");
+        var timeList = document.createElement("ul");
+        timeListDiv.appendChild(timeList);
+
+        function updateTimer() {
+            stopWatchMilliSeconds++;
+            if (stopWatchMilliSeconds == 100) {
+                stopWatchMilliSeconds = 0;
+                stopWatchSeconds += 1;
+            }
+            if (stopWatchSeconds == 60) {
+                stopWatchSeconds = 0;
+                stopWatchMinutes += 1;
+            }
+            document.getElementById("stopWatchMilliSeconds").innerHTML = stopWatchMilliSeconds;
+            document.getElementById("stopWatchSeconds").innerHTML = stopWatchSeconds;
+            document.getElementById("stopWatchMinutes").innerHTML = stopWatchMinutes;
         }
-        //Appended heading and list to the body of the page
-        document.body.appendChild(groceryHeading);
-        document.body.appendChild(groceryList);
+
+        startTimer.addEventListener("click", function() {
+            stopTimer = setInterval(updateTimer, 10);
+        });
+        pauseTimer.addEventListener("click", function() {
+            clearInterval(stopTimer);
+        });
+        resetTimer.addEventListener("click", function() {
+            clearInterval(stopTimer);
+            newTime = document.createElement("li");
+            timeList.appendChild(newTime);
+            newTime.appendChild(document.createTextNode(stopWatchMinutes + ":" + stopWatchSeconds + ":" + stopWatchMilliSeconds));
+            stopWatchMinutes = 0;
+            stopWatchSeconds = 0;
+            stopWatchMilliSeconds = 0;
+            document.getElementById("stopWatchMilliSeconds").innerHTML = stopWatchMilliSeconds;
+            document.getElementById("stopWatchSeconds").innerHTML = stopWatchSeconds;
+            document.getElementById("stopWatchMinutes").innerHTML = stopWatchMinutes;
+            deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            newTime.appendChild(deleteButton);
+            deleteButton.addEventListener("click", function(){timeList.removeChild(newTime)});
+
+        });
+
     })();
 </script>
 </body>
