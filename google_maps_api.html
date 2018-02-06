@@ -16,12 +16,15 @@
 <body>
 
 <div id="map"></div>
+<button id="zoom5">Zoomx5</button>
+<button id="zoom10">Zoomx10</button>
+<button id="zoom15">Zoomx15</button>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA12FJ0Fsb0QXncRWVWlF1M2UIPTn0VB8"></script>
 <script>
     var map = new google.maps.Map(document.getElementById("map"), {
-        center:{lat: 29.4260, lng: -98.4861},
+        center:{lat: 29.4268, lng: -98.4896},
         zoom: 11
     });
 
@@ -36,13 +39,17 @@
             image: "IMG/senorveggie-maps-icon.png",
             content: "\nThis restaurant has so many great mexican food options for <em>vegans</em>. It leaves no want for meat!\nI like the following dishes: <ul><li>Mole</li><li>Puffy Tacos</li><li>Vegan Burger</li></ul>"
         }, {restaurant: "<h3>Pappadeaux</h3>",
-            address: "15639 Frontage Rd, San Antonio, TX 78249",
+            address: "76 NE Interstate 410 Loop, San Antonio, TX 78216",
             image: "IMG/pappadeux-maps-icon.png",
             content: "\nThis is such a great restaurant if you <strong>love</strong> seafood! It is pricey but it is worth it!\nI like the following dishes: <ul><li>Crawfish Fondue</li><li>Stuffed Shrimp</li><li>Seafood Platter</li></ul>"
         }];
         favoriteRestaurants.forEach(function(object) {
             addMarker(object);
         });
+
+    document.getElementById("zoom5").addEventListener("click", function() {map.setZoom(5);});
+    document.getElementById("zoom10").addEventListener("click", function() {map.setZoom(10);});
+    document.getElementById("zoom15").addEventListener("click", function() {map.setZoom(15);});
 
     function geoCodeIt(address) {
         var geocoder = new google.maps.Geocoder();
@@ -58,7 +65,7 @@
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({"address": object.address}, function(results, status) {
             if (status == "OK") {
-                map.setCenter(results[0].geometry.location);
+                //map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
                     position: results[0].geometry.location,
                     map: map,
