@@ -45,7 +45,7 @@
     markerBtn.addEventListener("click", addMarker);
 
     var clearBtn = document.getElementById("clearBtn");
-    markerBtn.addEventListener("click", clearMarkers);
+    clearBtn.addEventListener("click", clearMarkers);
 
     //Makes double clicking on the map add a new marker
     google.maps.event.addListener(map, 'dblclick', function(event) {
@@ -67,7 +67,6 @@
 
     function clearMarkers() {
         setMapOnAll(null);
-        console.log(markers);
     }
 
     //geoCode is taking the address in the text input (value) and geocoding location on map
@@ -96,12 +95,13 @@
                     draggable: true,
                     title: "Drag me!",
                     icon: "IMG/alamo-maps-icon.png"
-                })
+                });
+                markers.push(marker);
             } else {
                 alert("That is an invalid address. Please enter a different address.")
             }
         });
-        markers.push(marker);
+
     }
 
 </script>
