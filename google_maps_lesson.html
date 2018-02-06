@@ -67,6 +67,7 @@
 
     function clearMarkers() {
         setMapOnAll(null);
+        console.log(markers);
     }
 
     //geoCode is taking the address in the text input (value) and geocoding location on map
@@ -99,8 +100,8 @@
             } else {
                 alert("That is an invalid address. Please enter a different address.")
             }
-            markers.push(marker);
         });
+        markers.push(marker);
     }
 
 </script>
