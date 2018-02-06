@@ -16,22 +16,58 @@
 <body>
 <div id="map"></div>
 <input type="text" id="address">
-<button id="geocodeBtn">Submit</button>
+<button id="geocodeBtn">Center Map</button>
+<button id="markerBtn">Add Marker</button>
+<button id="clearBtn">Clear Markers</button>
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA12FJ0Fsb0QXncRWVWlF1M2UIPTn0VB8">
 </script>
 <script>
     "use strict";
+    //creates a new map to display
     var alamoMap = document.getElementById('map');
     var options = {
         center: {lat: 29.4260, lng: -98.4861},
-        zoom: 10
+        zoom: 10,
+        //mapTypeId: google.maps.MapTypeId.HYBRID
     };
     var map = new google.maps.Map(alamoMap, options);
 
-    //when button is clicked, fires geoCode function
+    var markers = [];
+
+    //when button is clicked, fires geoCode function and centers specified address on map
     var geocodeBtn = document.getElementById("geocodeBtn");
     geocodeBtn.addEventListener("click", geoCode);
+
+    //when button is clicked, fires addMarker function and adds marker to map on specified address
+    var markerBtn = document.getElementById("markerBtn");
+    markerBtn.addEventListener("click", addMarker);
+
+    var clearBtn = document.getElementById("clearBtn");
+    markerBtn.addEventListener("click", clearMarkers);
+
+    //Makes double clicking on the map add a new marker
+    google.maps.event.addListener(map, 'dblclick', function(event) {
+        clickMarker(event.latLng, map);
+    });
+    function clickMarker(location, map) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+        })
+        markers.push(marker);
+    };
+
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
 
     //geoCode is taking the address in the text input (value) and geocoding location on map
     function geoCode() {
@@ -44,6 +80,26 @@
             } else {
                 alert("That is an invalid address. Please enter a different address.")
             }
+        });
+    }
+    //geocodes address and adds marker
+    function addMarker() {
+        var geocoder = new google.maps.Geocoder();
+        var geoAddress = document.getElementById("address").value;
+        geocoder.geocode({"address": geoAddress}, function (results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map,
+                    draggable: true,
+                    title: "Drag me!",
+                    icon: "IMG/alamo-maps-icon.png"
+                })
+            } else {
+                alert("That is an invalid address. Please enter a different address.")
+            }
+            markers.push(marker);
         });
     }
 
