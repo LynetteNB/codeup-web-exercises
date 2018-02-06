@@ -14,10 +14,8 @@
     </style>
 </head>
 <body>
-<form name = "geoCodeAddress" action="">
-    <input type="text" name="address">
+    <input type="text" id="address">
     <button id="geocodeBtn">Submit</button>
-</form>
 <div id="map"></div>
 
 
@@ -32,21 +30,22 @@
     };
     var map = new google.maps.Map(alamoMap, options);
 
+    //when button is clicked, fires geoCode function
     var geocodeBtn = document.getElementById("geocodeBtn");
-    geocodeBtn.addEventListener("click", geocodeAddress);
+    geocodeBtn.addEventListener("click", geoCode);
 
-
-    function geocodeAddress() {
-        var geoAddress = document.forms.geoCodeAddress.address.value;
+    //geoCode is taking the address in the text input (value) and geocoding location on map
+    function geoCode() {
         var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({"address": geoAddress}, function(results, status) {
+        var geoAddress = document.getElementById("address").value;
+        geocoder.geocode({"address": geoAddress}, function (results, status) {
             if (status == 'OK') {
                 map.setCenter(results[0].geometry.location);
-                map.setZoom(13);
+                map.setZoom(15);
             } else {
                 alert("That is an invalid address. Please enter a different address.")
             }
-        })
+        });
     }
 
 </script>
