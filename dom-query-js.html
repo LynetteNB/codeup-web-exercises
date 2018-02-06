@@ -151,15 +151,17 @@
         pauseTimer.addEventListener("click", function() {
             clearInterval(stopTimer);
         });
-
         resetTimer.addEventListener("click", function() {
             //stops timer
             clearInterval(stopTimer);
+
             //create list item and adds it to unordered list
             newTime = document.createElement("li");
             timeList.appendChild(newTime);
+
             //adds list text to list item
             newTime.appendChild(document.createTextNode(stopWatchMinutes + ":" + stopWatchSeconds + ":" + stopWatchMilliSeconds));
+
             //resets the time on the stop watch and displays it
             stopWatchMinutes = 0;
             stopWatchSeconds = 0;
@@ -167,23 +169,23 @@
             document.getElementById("stopWatchMilliSeconds").innerHTML = stopWatchMilliSeconds;
             document.getElementById("stopWatchSeconds").innerHTML = stopWatchSeconds;
             document.getElementById("stopWatchMinutes").innerHTML = stopWatchMinutes;
+
             //creates delete button to go with each list item
             deleteButton = document.createElement("button");
-            newTime.setAttribute("class", "delete");
+            deleteButton.setAttribute("class", "delete");
             newTime.appendChild(deleteButton);
-            var i = 0;
             deleteButton.innerText="Delete";
-            var dltBtns;
-            deleteButton.addEventListener("click", function(){
-                dltBtns = [];
-                dltBtns = document.getElementsByClassName("delete");
-                console.log(dltBtns[i]);
-                timeList.removeChild(dltBtns[i]);
-            });
-            i++;
+            var dltBtns = document.getElementsByClassName("delete");
+            console.log(dltBtns);
+            for (var i = 0; i < dltBtns.length; i++) {
+                dltBtns[i].addEventListener("click", function () {
+                    this.parentNode.remove();
+                });
+
+            }
         });
 
-    })();
+        })();
 </script>
 </body>
 </html>
