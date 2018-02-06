@@ -8,13 +8,15 @@
     <title>Google Map Lesson</title>
     <style>
         #map {
-            width: 800px;
-            height: 300px;
+            width: 500px;
+            height: 500px;
         }
     </style>
 </head>
 <body>
 <div id="map"></div>
+<input type="text" id="address">
+<button id="geocodeBtn">Submit</button>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA12FJ0Fsb0QXncRWVWlF1M2UIPTn0VB8">
 </script>
@@ -26,6 +28,24 @@
         zoom: 10
     };
     var map = new google.maps.Map(alamoMap, options);
+
+    //when button is clicked, fires geoCode function
+    var geocodeBtn = document.getElementById("geocodeBtn");
+    geocodeBtn.addEventListener("click", geoCode);
+
+    //geoCode is taking the address in the text input (value) and geocoding location on map
+    function geoCode() {
+        var geocoder = new google.maps.Geocoder();
+        var geoAddress = document.getElementById("address").value;
+        geocoder.geocode({"address": geoAddress}, function (results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                map.setZoom(15);
+            } else {
+                alert("That is an invalid address. Please enter a different address.")
+            }
+        });
+    }
 
 </script>
 </body>
