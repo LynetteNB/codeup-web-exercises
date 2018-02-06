@@ -25,9 +25,24 @@
         zoom: 11
     });
 
-    var favoriteRestaurant = "Sapporo, San Antonio, TX";
-    geoCodeIt(favoriteRestaurant);
-    addMarker(favoriteRestaurant);
+    var favoriteRestaurants = [
+        {
+            restaurant: "<h3>Sapporo</h3>",
+            address: "5638 W Hausman Rd, San Antonio, TX 78249",
+            image: "IMG/sapporo-maps-icon.png",
+            content: "\nThis is the best restaurant <strong> ever</strong>!! It carries great sushi at great prices!\nI like the following dishes: <ul><li>Geta-4</li><li>Philadelphia Roll</li><li>Spicy California Roll</li></ul>"
+        }, {restaurant: "<h3>Senor Veggie</h3>",
+            address: "620 S Presa St, San Antonio, TX 78210",
+            image: "IMG/senorveggie-maps-icon.png",
+            content: "\nThis restaurant has so many great mexican food options for <em>vegans</em>. It leaves no want for meat!\nI like the following dishes: <ul><li>Mole</li><li>Puffy Tacos</li><li>Vegan Burger</li></ul>"
+        }, {restaurant: "<h3>Pappadeaux</h3>",
+            address: "15639 Frontage Rd, San Antonio, TX 78249",
+            image: "IMG/pappadeux-maps-icon.png",
+            content: "\nThis is such a great restaurant if you <strong>love</strong> seafood! It is pricey but it is worth it!\nI like the following dishes: <ul><li>Crawfish Fondue</li><li>Stuffed Shrimp</li><li>Seafood Platter</li></ul>"
+        }];
+        favoriteRestaurants.forEach(function(object) {
+            addMarker(object);
+        });
 
     function geoCodeIt(address) {
         var geocoder = new google.maps.Geocoder();
@@ -39,19 +54,22 @@
             }
         })
     }
-    function addMarker(address) {
+    function addMarker(object) {
         var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({"address": address}, function(results, status) {
+        geocoder.geocode({"address": object.address}, function(results, status) {
             if (status == "OK") {
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
                     position: results[0].geometry.location,
-                    map: map
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: object.image
                 });
-                var infoWindow = new google.maps.InfoWindow(
-                    {content: address}
-                );
-                infoWindow.open(map, marker);
+                var infoWindow = new google.maps.InfoWindow({content: object.restaurant + object.content});
+
+                marker.addListener("click", function() {
+                    infoWindow.open(map, marker);
+                });
             } else {
                 alert("Please enter a valid address");
             }
