@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+<h3>Login!</h3>
+<form action="" method="POST">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+    <label for="password-confirm">Confirm Password</label>
+    <input type="password" id="password-confirm" name="password-confirm">
+    <div></div>
+    <input type="submit" id="login">
+</form>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script>
+    "use strict";
+    function validateInput(event) {
+        event.preventDefault();
+        $("div").html("");
+        if($('#username').val() !== "" && $('#password').val() !== "" && $('#password-confirm').val() === $("#password").val()) {
+            $("form").submit();
+        }
+        if($('#username').val() === "") {
+            $('div').append("<p>Please input a username.</p>");
+        }
+        if($('#password').val() === "" || $('#password').val() === "") {
+            $('div').append("<p>Please input a password.</p>");
+        }
+        if($('#password-confirm').val() !== $("#password").val()) {
+            $('div').append("<p>Your passwords do not match!</p>")
+        }
+    }
+    $("#login").click(validateInput);
+</script>
+</body>
+</html>
