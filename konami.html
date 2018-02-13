@@ -2,25 +2,163 @@
 <html>
 <head>
     <title>Konami Code</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        #controller {
+            background-image: url('IMG/nintendo-control.png');
+            width: 558px;
+            height: 262px;
+            margin: 0 auto;
+            position: relative;
+        }
+        #blockleft, #blocktop, #blockright, #blockdown, #a, #b, #start, #select {
+            position: absolute;
+        }
+        #blockleft {
+            top: 128px;
+            left: 72px;
+            height: 32px;
+            width: 30px;
+        }
+        #blocktop {
+            top: 94px;
+            left: 103px;
+            height: 34px;
+            width: 36px;
+        }
+        #blockright {
+            top: 128px;
+            left: 140px;
+            width: 30px;
+            height: 32px;
+        }
+        #blockdown {
+            top: 160px;
+            left: 103px;
+            height: 32px;
+            width: 36px;
+        }
+        #a {
+            height: 46px;
+            width: 46px;
+            top: 141px;
+            right: 69px;
+            border-radius: 50%;
+        }
+        #b {
+            height: 46px;
+            width: 46px;
+            top: 141px;
+            right: 135px;
+            border-radius: 50%;
+        }
+        #start {
+            height: 14px;
+            width: 48px;
+            top: 175px;
+            right: 223px;
+            border-radius: 12%;
+        }
+        #select {
+            height: 14px;
+            width: 48px;
+            top: 175px;
+            right: 287px;
+            border-radius: 12%;
+        }
+    </style>
 </head>
 <body>
 <h1>Konami Code</h1>
-<div></div>
+<div id="contain">
+    <div id="controller">
+        <div id="blockleft"></div>
+        <div id="blocktop"></div>
+        <div id="blockright"></div>
+        <div id="blockdown"></div>
+        <div id="a"></div>
+        <div id="b"></div>
+        <div id="start"></div>
+        <div id="select"></div>
+    </div>
+    <audio id="marioSound" preload="auto">
+        <source src="IMG/i-got-it.wav"></source>
+    </audio>
+</div>
 
 
 <script src="js/jquery-2.2.4.js"></script>
 <script>
     "use strict";
-    var konamiString = "3838404037393739656613";
+    var konamiString = "3838404037393739666513";
     var konamiCheck = "";
-    $('div').html("");
+    //controller presses
+    $(document).keydown(function(event){
+       if(event.keyCode === 38) {
+           $("#blocktop").css('background', 'red');
+       }
+        if(event.keyCode === 40) {
+            $("#blockdown").css('background', 'red');
+        }
+        if(event.keyCode === 37) {
+            $("#blockleft").css('background', 'red');
+        }
+        if(event.keyCode === 39) {
+            $("#blockright").css('background', 'red');
+        }
+        if(event.keyCode === 65) {
+            $("#a").css('background', 'white');
+        }
+        if(event.keyCode === 66) {
+            $("#b").css('background', 'white');
+        }
+        if(event.keyCode === 13) {
+            $("#start").css('background', 'red');
+        }
+        if(event.keyCode === 16) {
+            $("#select").css('background', 'red');
+        }
+    });
+    //resets controller
     $(document).keyup(function(event){
-        // console.log(event.keyCode);
+        if(event.keyCode === 38) {
+            $("#blocktop").css('background', '');
+        }
+        if(event.keyCode === 40) {
+            $("#blockdown").css('background', '');
+        }
+        if(event.keyCode === 37) {
+            $("#blockleft").css('background', '');
+        }
+        if(event.keyCode === 39) {
+            $("#blockright").css('background', '');
+        }
+        if(event.keyCode === 65) {
+            $("#a").css('background', '');
+        }
+        if(event.keyCode === 66) {
+            $("#b").css('background', '');
+        }
+        if(event.keyCode === 13) {
+            $("#start").css('background', '');
+        }
+        if(event.keyCode === 16) {
+            $("#select").css('background', '');
+        }
+    });
+    //checking for konami code
+    $(document).keyup(function(event){
         konamiCheck += event.keyCode;
         if(konamiCheck.includes(konamiString)) {
-            $('div').append("<h1>You have added 30 lives!!</h1>");
+            $('#contain').append("<h1>You have added 30 lives!!</h1>");
             konamiCheck = "";
-            $('body').css({background: '#40B', color: 'aqua'})
+            $('body').css({
+                background: "#000",
+                color: 'white'
+            });
+            $('#marioSound')[0].play();
         }
     });
 

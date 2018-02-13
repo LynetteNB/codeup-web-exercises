@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        #game {
+            position: relative;
+        }
+        #xPlayer {
+            float:left;
+            position: absolute;
+            left: 430px;
+        }
+        #oPlayer {
+            float: left;
+            position: absolute;
+            right: 430px;
+        }
+        #board {
+            margin: 0 auto;
+            height: 216px;
+            width: 216px;
+        }
+        #board div {
+            border: 1px solid black;
+            height: 70px;
+            width: 70px;
+            float: left;
+        }
+        #board div:nth-child(3n+4){
+            clear:left;
+        }
+        button {
+            font-size: 20px;
+            height: 30px;
+            width: 115px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
+        #button {
+            margin: 10px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Tic-Tac-Toe!</h1>
+<div id="game">
+    <h3 id="xPlayer">X Player Turn</h3>
+    <h3 id="oPlayer">O Player Turn</h3>
+    <div id="board">
+        <div id="topleft"></div>
+        <div id="topcenter"></div>
+        <div id="topright"></div>
+        <div id="centerleft"></div>
+        <div id="center"></div>
+        <div id="centerright"></div>
+        <div id="bottomleft"></div>
+        <div id="bottomcenter"></div>
+        <div id="bottomright"></div>
+    </div>
+    <div id="button">
+        <button id="playAgain">Play Again?</button>
+    </div>
+</div>
+<script src="js/jquery-2.2.4.js"></script>
+<script>
+    var turnCounter = 1;
+
+    function startGame() {
+        $('#topleft').html("").click(tictactoe);
+        $('#topcenter').html("").click(tictactoe);
+        $('#topright').html("").click(tictactoe);
+        $('#centerleft').html("").click(tictactoe);
+        $('#center').html("").click(tictactoe);
+        $('#centerright').html("").click(tictactoe);
+        $('#bottomleft').html("").click(tictactoe);
+        $('#bottomcenter').html("").click(tictactoe);
+        $('#bottomright').html("").click(tictactoe);
+
+        $('#button').hide();
+        $('#oPlayer').hide();
+        $('#xPlayer').show();
+    }
+    startGame();
+    //Tic Tac Toe Play Function
+    function tictactoe() {
+        if(turnCounter%2 === 1) {
+            $('#xPlayer').hide();
+            $('#oPlayer').show();
+            $(this).html("X").css({fontSize: '67px', textAlign: 'center'});
+        } else if(turnCounter%2 === 0) {
+            $('#xPlayer').show();
+            $('#oPlayer').hide();
+            $(this).html("O").css({fontSize: '67px', textAlign: 'center'});
+        }
+        if(turnCounter === 9) {
+            $('#xPlayer').hide();
+            $('#oPlayer').hide();
+            $('#button').show();
+
+        }
+            $(this).off();
+        turnCounter++;
+    }
+
+    //Restart New Game when button clicked Function
+    $('#playAgain').click(function(event){
+        event.preventDefault();
+        turnCounter = 1;
+        startGame();
+    });
+</script>
+</body>
+</html>
