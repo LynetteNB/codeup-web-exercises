@@ -35,10 +35,14 @@
         if($('#password').val() === "" || $('#password').val() === "") {
             $('div').append("<p>Please input a password.</p>");
         }
+    }
+    function comparePasswords(event) {
+        $("div").html("");
         if($('#password-confirm').val() !== $("#password").val()) {
             $('div').append("<p>Your passwords do not match!</p>")
         }
     }
+    $("#password-confirm").keyup(comparePasswords);
     $("#login").click(validateInput);
 </script>
 </body>
