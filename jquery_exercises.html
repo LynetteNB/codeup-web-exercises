@@ -25,13 +25,32 @@
 <script src="js/jquery-2.2.4.js"></script>
 <script>
     $(document).ready(function() {
+        //jquery introduction exercise
         // alert("The DOM has finished loading!");
+
+        //jquery selectors exercise
         // alert($('#alert').html());
         // $('.codeup').css('border', '1px solid red');
-        $('li').css('font-size', '20px');
-        $('h1, p, li').css('background', 'yellow');
-        var h1Elements = $('h1').html();
-        alert(h1Elements);
+        // $('li').css('font-size', '20px');
+        // $('h1, p, li').css('background', 'yellow');
+        // var h1Elements = $('h1').html();
+        // alert(h1Elements);
+
+        //jquery mouse events exercise
+        $('h1').click(function(e){
+            $(this).css({background: 'aqua'});
+        });
+        $('p').dblclick(function(e){
+            $(this).css({fontSize: '18px'})
+        });
+        $('li').hover(
+            function(){
+                $(this).css({color: '#F00'});
+            },
+            function(){
+                $(this).css({color: '#000'})
+            }
+        );
     });
 </script>
 </body>
