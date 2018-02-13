@@ -112,8 +112,22 @@
             $('#button').show();
 
         }
-            $(this).off();
+        $(this).off();
         turnCounter++;
+    }
+
+    //checking who wins
+    function winning(){
+        if($('#topleft').html() === $('#topcenter').html() && $('#topcenter') === $('#topright').html() ||
+            $('#centerleft').html() === $('#center').html() && $('#center') === $('#centerright').html() ||
+            $('#bottomleft').html() === $('#bottomcenter').html() && $('#bottomcenter') === $('#bottomright').html() ||
+            $('#topcenter').html() === $('#center').html() && $('#center') === $('#bottomcenter').html() ||
+            $('#topright').html() === $('#centerright').html() && $('#centerright') === $('#bottomright').html() ||
+            $('#topleft').html() === $('#centerleft').html() && $('#centerleft') === $('#bottomleft').html() ||
+            $('#topleft').html() === $('#center').html() && $('#center') === $('#bottomright').html() ||
+            $('#topright').html() === $('#center').html() && $('#center') === $('#bottomleft').html()) {
+            console.log("win");
+        }
     }
 
     //Restart New Game when button clicked Function
