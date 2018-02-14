@@ -45,7 +45,7 @@
             background-image: url("IMG/pusheen-rainbow.jpg")
         }
         #left, #middle, #right {
-            margin: 0 165px;
+            margin: 0 160px;
 
         }
         #buttons {
@@ -159,7 +159,7 @@
         });
     });
     $('h3').click(function(){
-        $(this).next().css('fontWeight','bold').slideToggle();
+        $(this).next().css('fontWeight','bold').slideToggle().removeClass();
     });
     $('li').click(function(){
         $(this).parent().children().first().css('color','blue');
@@ -178,13 +178,26 @@
         $('.frames').children().first().next().next().removeClass(lastClass).addClass(middleClass);
         $('.frames').children().first().next().removeClass(middleClass).addClass(lastClass);
     });
+    function getRandomSide(){
+        var array = ['left', 'right'];
+        var randomSide = array[Math.round((Math.random()))];
+        return randomSide;
+    }
     $('#middle').click(function(event){
         event.preventDefault();
-        var firstClass = $('div').first().attr('class');
-        var lastClass = $('div').first().next().next().attr('class');
-        var middleClass = $('div').first().next().attr('class');
-        $('div').first().next().next().removeClass(lastClass).addClass(middleClass);
-        $('div').first().next().removeClass(middleClass).addClass(lastClass);
+        var randomSide = getRandomSide();
+        var firstClass = $('.frames').children().first().attr('class');
+        var middleClass = $('.frames').children().first().next().attr('class');
+        var lastClass = $('.frames').children().first().next().next().attr('class');
+
+        if(randomSide === "left"){
+            $('.frames').children().first().removeClass(firstClass).addClass(middleClass);
+            $('.frames').children().first().next().removeClass(middleClass).addClass(firstClass);
+        }
+        else if (randomSide === "right") {
+            $('.frames').children().first().next().next().removeClass(lastClass).addClass(middleClass);
+            $('.frames').children().first().next().removeClass(middleClass).addClass(lastClass);
+        }
     });
 </script>
 
