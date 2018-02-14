@@ -51,26 +51,34 @@
             text-align: center;
             margin-bottom: 200px;
         }
+        .xHide {
+            font-weight: normal;
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
+<div>
+    <h1>Would you like to sign up for our newsletter? <span class="xHide">x</span></h1>
+</div>
+<h2 class="invisible registerTimeout">Would you like to register for the site?</h2>
 <h1>National Park FAQs</h1>
 <h3 id="garner-header">Garner State Park</h3>
-<ul id="garner">
+<ul id="garner" class="invisible">
     <li>Fact 1</li>
     <li>Fact 2</li>
     <li>Fact 3</li>
     <li>Fact 4</li>
 </ul>
 <h3 id="lake-casa-blanca-header">Lake Casa Blanca State Park</h3>
-<ul id="lake-casa-blanca">
+<ul id="lake-casa-blanca" class="invisible">
     <li>Fact 1</li>
     <li>Fact 2</li>
     <li>Fact 3</li>
     <li>Fact 4</li>
 </ul>
 <h3 id="yellowstone-header">Yellowstone State Park</h3>
-<ul id="yellowstone">
+<ul id="yellowstone" class="invisible">
     <li>Fact 1</li>
     <li>Fact 2</li>
     <li>Fact 3</li>
@@ -101,18 +109,27 @@
 </dl>
 
 <a>View All Answers</a>
-
-<div class="leftFrame"></div>
-<div class="middleFrame"></div>
-<div class="rightFrame"></div>
-<div id="buttons">
-    <button id="left">Swap!</button>
-    <button id="middle">Swap!</button>
-    <button id="right">Swap!</button>
+<div class="frames">
+    <div class="leftFrame"></div>
+    <div class="middleFrame"></div>
+    <div class="rightFrame"></div>
+    <div id="buttons">
+        <button id="left">Swap!</button>
+        <button id="middle">Swap!</button>
+        <button id="right">Swap!</button>
+    </div>
 </div>
 
 <script src="js/jquery-2.2.4.js"></script>
 <script>
+    $('.xHide').click(function(){
+        $('div').first().hide();
+    });
+    setTimeout(function(){
+        $('.registerTimeout').fadeIn({
+            duration: 1500
+        });
+    },8000);
     $('dd').addClass('invisible');
     $('a').click(function(event){
        event.preventDefault();
@@ -129,24 +146,24 @@
         });
     });
     $('h3').click(function(){
-        $(this).next().children("li").css('fontWeight','bold');
+        $(this).next().css('fontWeight','bold').slideToggle();
     });
     $('li').click(function(){
         $(this).parent().children().first().css('color','blue');
     });
     $('#left').click(function(event){
         event.preventDefault();
-        var firstClass = $('div').first().attr('class');
-        var middleClass = $('div').first().next().attr('class');
-        $('div').first().removeClass(firstClass).addClass(middleClass);
-        $('div').first().next().removeClass(middleClass).addClass(firstClass);
+        var firstClass = $('.frames').children().first().attr('class');
+        var middleClass = $('.frames').children().first().next().attr('class');
+        $('.frames').children().first().removeClass(firstClass).addClass(middleClass);
+        $('.frames').children().first().next().removeClass(middleClass).addClass(firstClass);
     });
     $('#right').click(function(event){
         event.preventDefault();
-        var lastClass = $('div').first().next().next().attr('class');
-        var middleClass = $('div').first().next().attr('class');
-        $('div').first().next().next().removeClass(lastClass).addClass(middleClass);
-        $('div').first().next().removeClass(middleClass).addClass(lastClass);
+        var lastClass = $('.frames').children().first().next().next().attr('class');
+        var middleClass = $('.frames').children().first().next().attr('class');
+        $('.frames').children().first().next().next().removeClass(lastClass).addClass(middleClass);
+        $('.frames').children().first().next().removeClass(middleClass).addClass(lastClass);
     });
     $('#middle').click(function(event){
         event.preventDefault();
