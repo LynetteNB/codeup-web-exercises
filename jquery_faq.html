@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JQuery FAQ</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <style>
         body {
             width: 80%;
@@ -51,17 +52,28 @@
             text-align: center;
             margin-bottom: 200px;
         }
-        .xHide {
-            font-weight: normal;
-            font-size: 17px;
-        }
     </style>
 </head>
 <body>
-<div>
-    <h1>Would you like to sign up for our newsletter? <span class="xHide">x</span></h1>
+<div class="alert alert-info alert-dismissible">
+    <button type="button" class="close xHide"><span>x</span></button>
+    <h1>Would you like to sign up for our newsletter?</h1>
 </div>
-<h2 class="invisible registerTimeout">Would you like to register for the site?</h2>
+<button type="button" class="invisible" data-toggle="modal" data-target="#myModal">Small modal</button>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="myModalLabel">Would you like for register to our site?</h2>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button">Yes!</button>
+                <button class="btn" data-dismiss="modal" type="button">No Thanks</button>
+            </div>
+        </div>
+    </div>
+</div>
 <h1>National Park FAQs</h1>
 <h3 id="garner-header">Garner State Park</h3>
 <ul id="garner" class="invisible">
@@ -121,14 +133,15 @@
 </div>
 
 <script src="js/jquery-2.2.4.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script>
     $('.xHide').click(function(){
         $('div').first().hide();
     });
     setTimeout(function(){
-        $('.registerTimeout').fadeIn({
-            duration: 1500
-        });
+        $('#myModal').modal('show');
+        //     duration: 1500
+        // }).removeClass();
     },8000);
     $('dd').addClass('invisible');
     $('a').click(function(event){
