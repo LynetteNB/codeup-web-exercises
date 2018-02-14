@@ -27,20 +27,20 @@
             color: purple;
             cursor: pointer;
         }
-        #leftFrame, #middleFrame, #rightFrame {
+        .leftFrame, .middleFrame, .rightFrame {
             border: 3px dashed #2aabd2;
             height: 350px;
             width: 370px;
             float: left;
             margin: 10px 2px;
         }
-        #leftFrame {
+        .leftFrame {
             background-image: url("IMG/pusheen.png")
         }
-        #middleFrame {
+        .middleFrame {
             background-image: url("IMG/pusheen-pizza.jpg")
         }
-        #rightFrame {
+        .rightFrame {
             background-image: url("IMG/pusheen-rainbow.jpg")
         }
         #left, #middle, #right {
@@ -102,9 +102,9 @@
 
 <a>View All Answers</a>
 
-<div id="leftFrame"></div>
-<div id="middleFrame"></div>
-<div id="rightFrame"></div>
+<div class="leftFrame"></div>
+<div class="middleFrame"></div>
+<div class="rightFrame"></div>
 <div id="buttons">
     <button id="left">Swap!</button>
     <button id="middle">Swap!</button>
@@ -136,7 +136,25 @@
     });
     $('#left').click(function(event){
         event.preventDefault();
-        $('div').first().removeClass();
+        var firstClass = $('div').first().attr('class');
+        var middleClass = $('div').first().next().attr('class');
+        $('div').first().removeClass(firstClass).addClass(middleClass);
+        $('div').first().next().removeClass(middleClass).addClass(firstClass);
+    });
+    $('#right').click(function(event){
+        event.preventDefault();
+        var lastClass = $('div').first().next().next().attr('class');
+        var middleClass = $('div').first().next().attr('class');
+        $('div').first().next().next().removeClass(lastClass).addClass(middleClass);
+        $('div').first().next().removeClass(middleClass).addClass(lastClass);
+    });
+    $('#middle').click(function(event){
+        event.preventDefault();
+        var firstClass = $('div').first().attr('class');
+        var lastClass = $('div').first().next().next().attr('class');
+        var middleClass = $('div').first().next().attr('class');
+        $('div').first().next().next().removeClass(lastClass).addClass(middleClass);
+        $('div').first().next().removeClass(middleClass).addClass(lastClass);
     });
 </script>
 
