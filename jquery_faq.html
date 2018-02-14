@@ -55,11 +55,10 @@
     </style>
 </head>
 <body>
-<div class="alert alert-info alert-dismissible">
+<div class="alert alert-info alert-dismissible invisible">
     <button type="button" class="close xHide"><span>x</span></button>
-    <h1>Would you like to sign up for our newsletter?</h1>
+    Would you like to <strong>sign up</strong> for our newsletter?
 </div>
-<button type="button" class="invisible" data-toggle="modal" data-target="#myModal">Small modal</button>
 
 <div class="modal fade" id="myModal">
     <div class="modal-dialog" role="document">
@@ -138,6 +137,7 @@
     $('.xHide').click(function(){
         $('div').first().hide();
     });
+    $('.alert').fadeIn(800).removeClass('invisible');
     setTimeout(function(){
         $('#myModal').modal('show');
         //     duration: 1500
