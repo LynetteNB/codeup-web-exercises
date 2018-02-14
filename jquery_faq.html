@@ -21,10 +21,35 @@
         a {
             text-decoration: underline;
             color: blue;
+            display: block;
         }
         a:hover {
             color: purple;
             cursor: pointer;
+        }
+        #leftFrame, #middleFrame, #rightFrame {
+            border: 3px dashed #2aabd2;
+            height: 350px;
+            width: 370px;
+            float: left;
+            margin: 10px 2px;
+        }
+        #leftFrame {
+            background-image: url("IMG/pusheen.png")
+        }
+        #middleFrame {
+            background-image: url("IMG/pusheen-pizza.jpg")
+        }
+        #rightFrame {
+            background-image: url("IMG/pusheen-rainbow.jpg")
+        }
+        #left, #middle, #right {
+            margin: 0 165px;
+
+        }
+        #buttons {
+            text-align: center;
+            margin-bottom: 200px;
         }
     </style>
 </head>
@@ -77,6 +102,15 @@
 
 <a>View All Answers</a>
 
+<div id="leftFrame"></div>
+<div id="middleFrame"></div>
+<div id="rightFrame"></div>
+<div id="buttons">
+    <button id="left">Swap!</button>
+    <button id="middle">Swap!</button>
+    <button id="right">Swap!</button>
+</div>
+
 <script src="js/jquery-2.2.4.js"></script>
 <script>
     $('dd').addClass('invisible');
@@ -100,7 +134,10 @@
     $('li').click(function(){
         $(this).parent().children().first().css('color','blue');
     });
-
+    $('#left').click(function(event){
+        event.preventDefault();
+        $('div').first().removeClass();
+    });
 </script>
 
 </body>

@@ -72,6 +72,7 @@
         <div id="bottomright"></div>
     </div>
     <div id="button">
+        <h1></h1>
         <button id="playAgain">Play Again?</button>
     </div>
 </div>
@@ -110,30 +111,100 @@
             $('#xPlayer').hide();
             $('#oPlayer').hide();
             $('#button').show();
+            $('#button h1').text("It's a Draw!!");
 
         }
         $(this).off();
         turnCounter++;
+        winning();
     }
 
     //checking who wins
     function winning(){
-        if($('#topleft').html() === $('#topcenter').html() && $('#topcenter') === $('#topright').html() ||
-            $('#centerleft').html() === $('#center').html() && $('#center') === $('#centerright').html() ||
-            $('#bottomleft').html() === $('#bottomcenter').html() && $('#bottomcenter') === $('#bottomright').html() ||
-            $('#topcenter').html() === $('#center').html() && $('#center') === $('#bottomcenter').html() ||
-            $('#topright').html() === $('#centerright').html() && $('#centerright') === $('#bottomright').html() ||
-            $('#topleft').html() === $('#centerleft').html() && $('#centerleft') === $('#bottomleft').html() ||
-            $('#topleft').html() === $('#center').html() && $('#center') === $('#bottomright').html() ||
-            $('#topright').html() === $('#center').html() && $('#center') === $('#bottomleft').html()) {
-            console.log("win");
+        if($('#topleft').html() === $('#topcenter').html() && $('#topcenter').html() === $('#topright').html() && $('#topcenter').html() === "X" ||
+            $('#topleft').html() === $('#centerleft').html() && $('#bottomleft').html() === $('#topleft').html() && $('#topleft').html() === "X" ||
+            $('#centerleft').html() === $('#center').html() && $('#center').html() === $('#centerright').html() && $('#center').html() === "X" ||
+            $('#topcenter').html() === $('#center').html() && $('#center').html() === $('#bottomcenter').html() && $('#center').html() === "X" ||
+            $('#bottomleft').html() === $('#bottomcenter').html() && $('#bottomcenter').html() === $('#bottomright').html() && $('#bottomcenter').html() === "X" ||
+            $('#topright').html() === $('#centerright').html() && $('#centerright').html() === $('#bottomright').html() && $('#topright').html() === "X" ||
+            $('#topleft').html() === $('#center').html() && $('#center').html() === $('#bottomright').html() && $('#center').html() === "X" ||
+            $('#topright').html() === $('#center').html() && $('#center').html() === $('#bottomleft').html() && $('#center').html() === "X") {
+
+            $('#button h1').text("X Wins!!");
+            $('#button').show();
+            $('#xPlayer').hide();
+            $('#oPlayer').hide();
+            $('#board').children().off();
+            changeTileColor();
+        }
+        if($('#topleft').html() === $('#topcenter').html() && $('#topcenter').html() === $('#topright').html() && $('#topcenter').html() === "O" ||
+            $('#topleft').html() === $('#centerleft').html() && $('#bottomleft').html() === $('#topleft').html() && $('#topleft').html() === "O" ||
+            $('#centerleft').html() === $('#center').html() && $('#center').html() === $('#centerright').html() && $('#center').html() === "O" ||
+            $('#topcenter').html() === $('#center').html() && $('#center').html() === $('#bottomcenter').html() && $('#center').html() === "O" ||
+            $('#bottomleft').html() === $('#bottomcenter').html() && $('#bottomcenter').html() === $('#bottomright').html() && $('#bottomcenter').html() === "O" ||
+            $('#topright').html() === $('#centerright').html() && $('#centerright').html() === $('#bottomright').html() && $('#topright').html() === "O" ||
+            $('#topleft').html() === $('#center').html() && $('#center').html() === $('#bottomright').html() && $('#center').html() === "O" ||
+            $('#topright').html() === $('#center').html() && $('#center').html() === $('#bottomleft').html() && $('#center').html() === "O") {
+
+            $('#button h1').text("O Wins!!");
+            $('#button').show();
+            $('#xPlayer').hide();
+            $('#oPlayer').hide();
+            $('#board').children().off();
+            changeTileColor();
         }
     }
+    //changes color of tile based on winning move
+    function changeTileColor() {
+        if($('#topleft').html() === $('#topcenter').html() && $('#topcenter').html() === $('#topright').html()) {
+            $('#topleft').css('background', 'black').css('color', 'white');
+            $('#topcenter').css('background', 'black').css('color', 'white');
+            $('#topright').css('background', 'black').css('color', 'white');
+        }
+        else if($('#topleft').html() === $('#centerleft').html() && $('#bottomleft').html() === $('#topleft').html()) {
+            $('#topleft').css('background', 'black').css('color', 'white');
+            $('#centerleft').css('background', 'black').css('color', 'white');
+            $('#bottomleft').css('background', 'black').css('color', 'white');
+        }
+        else if($('#centerleft').html() === $('#center').html() && $('#center').html() === $('#centerright').html()) {
+            $('#centerleft').css('background', 'black').css('color', 'white');
+            $('#center').css('background', 'black').css('color', 'white');
+            $('#centerright').css('background', 'black').css('color', 'white');
+        }
+        else if($('#topcenter').html() === $('#center').html() && $('#center').html() === $('#bottomcenter').html()) {
+            $('#topcenter').css('background', 'black').css('color', 'white');
+            $('#center').css('background', 'black').css('color', 'white');
+            $('#bottomcenter').css('background', 'black').css('color', 'white');
+        }
+        else if($('#bottomleft').html() === $('#bottomcenter').html() && $('#bottomcenter').html() === $('#bottomright').html()) {
+            $('#bottomleft').css('background', 'black').css('color', 'white');
+            $('#bottomcenter').css('background', 'black').css('color', 'white');
+            $('#bottomright').css('background', 'black').css('color', 'white');
+        }
+        else if($('#topright').html() === $('#centerright').html() && $('#centerright').html() === $('#bottomright').html()) {
+            $('#topright').css('background', 'black').css('color', 'white');
+            $('#centerright').css('background', 'black').css('color', 'white');
+            $('#bottomright').css('background', 'black').css('color', 'white');
+        }
+        else if($('#topleft').html() === $('#center').html() && $('#center').html() === $('#bottomright').html()) {
+            $('#topleft').css('background', 'black').css('color', 'white');
+            $('#center').css('background', 'black').css('color', 'white');
+            $('#bottomright').css('background', 'black').css('color', 'white');
+        }
+        else if($('#topright').html() === $('#center').html() && $('#center').html() === $('#bottomleft').html()) {
+            $('#topright').css('background', 'black').css('color', 'white');
+            $('#center').css('background', 'black').css('color', 'white');
+            $('#bottomleft').css('background', 'black').css('color', 'white');
+        }
+    }
+
 
     //Restart New Game when button clicked Function
     $('#playAgain').click(function(event){
         event.preventDefault();
         turnCounter = 1;
+        $("#button h1").text("");
+        $("#board div").css('background','').css('color','black');
         startGame();
     });
 </script>
