@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX Blog</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Ubuntu" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Anonymous Pro', monospace;
+        }
+        h1,h2, h3, h4, h5, h6 {
+            font-family: 'Ubuntu', sans-serif;
+        }
+        main {
+            background-image: url("IMG/ajax-blog-ny.jpg");
+            width: 100%;
+            height: 48.8vw;
+            margin-bottom: 4.88vw;
+        }
+        main h1 {
+            text-align: center;
+            line-height: 48.8vw;
+            white-space: nowrap;
+            font-size: 14.6vw;
+            color: white;
+            margin: 0;
+            display: block;
+        }
+        a {
+            pointer: cursor;
+        }
+        footer {
+            margin-top: 9.77vw;
+            height: 9.77vw;
+        }
+        footer div {
+            width: 90%;
+            margin: 0 auto;
+        }
+        footer img {
+            width: 10vw;
+            float: right;
+            margin: 0 .97vw;
+        }
+        footer p{
+            float: left;
+            width: 55%;
+        }
+        #post {
+            width: 85%;
+            margin: 0 auto;
+        }
+        .title {
+            padding: .97vw 0;
+            cursor: pointer;
+        }
+        .date {
+            color: darkgray;
+        }
+        .categories {
+            color: darkcyan;
+        }
+    @media screen and (min-width: 768px) {
+        #post {
+            width: 70%;
+        }
+        h1,h2, h3, h4, h5, h6 {
+            display: inline;
+        }
+        footer img {
+            width: 5vw;
+        }
+    }
+    </style>
+</head>
+<body>
+<main>
+    <h1>The Lyna Life</h1>
+</main>
+<div id="post">
+</div>
+<footer>
+    <hr>
+    <div>
+        <p><em>Make everything as simple as possible, but not simpler. - Albert Einstein</p>
+        <a href=""><img src="IMG/facebook.png"></a>
+        <a href=""><img src="IMG/linkedin.png"></a>
+        <a href=""><img src="IMG/instagram.png"></a>
+    </div>
+</footer>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+    function updateBlog() {
+        $.ajax("data/blog.json").done(function (posts) {
+            var html = "";
+            var categories = "";
+            posts.forEach(function (post) {
+                //get categories for blog post and turn into string
+                post.categories.forEach(function (category, index, array) {
+                    if (index === array.length - 1) {
+                        categories += category;
+                    } else {
+                        categories += category + ", ";
+                    }
+                });
+                //creates html for each post
+                html += "<div class='title'><h1>" + post.title + " </h1><h4 class='date'>" + post.date + "</div><div class='content'><p>" + post.content + "</p><p class='categories'>" + categories + "</p></div></div>";
+                categories = "";
+            });
+            $("#post").html(html);
+            $(".content").hide();
+            $(".title").click(function () {
+                $(this).next().toggle(200);
+            });
+        });
+    }
+    updateBlog();
+</script>
+
+</body>
+</html>

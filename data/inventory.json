@@ -38,5 +38,13 @@
         "manual"
     ],
     "price": 5
+    }, {
+    "title": "Screws",
+    "quantity": 40,
+    "categories": [
+        "tool",
+        "grooved"
+    ],
+    "price": 7.5
 }
 ]
