@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Map Project</title>
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Ubuntu" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("IMG/Weatherbkgrnd.png");
+            font-family: 'Anonymous Pro', monospace;
+        }
+        main {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #100D1D;
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 40px;
+        }
+        h2 {
+            display: inline;
+            margin-right: 30px;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        input {
+            height: 25px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            height: 32px;
+            background: #e5e5e5;
+            font-size: 20px;
+            border-radius: 10%;
+        }
+        button:hover {
+            background: #2b669a;
+            color: #e5e5e5;
+        }
+        .weatherDisplay {
+            margin: 0 auto;
+            text-align: center;
+        }
+        .day {
+            height: 275px;
+            width: 32%;
+            background: #C0DDEF;
+            text-align: center;
+            border: 1px solid black;
+            float: left;
+            color: #182038;
+        }
+        .header {
+            background: #182038;
+            float: left;
+            width: 32%;
+            height: 20px;
+            text-align: center;
+            border: 1px solid black;
+            color: #F8ECE8;
+            padding-top: 4px;
+        }
+        .weather {
+            clear: left;
+            margin-bottom: 10px;
+        }
+        .gifSize {
+            height: 75px;
+        }
+        #map{
+            width: 96.5%;
+            height: 400px;
+        }
+        #forMap {
+            margin: 100px 0;
+        }
+    </style>
+</head>
+<body>
+<main>
+<h1>Weather Project</h1>
+    <h2 class="city"></h2>
+    <!--<input type="text" placeholder="Latitude" id="latitude">-->
+    <!--<input type="text" placeholder="Longitude" id="longitude">-->
+    <!--<button id="latlon">Search!</button>-->
+    <select name="daysNumber" id="daysNumber" class="button">
+        <option value="3">3-Day Forecast</option>
+        <option value="4">4-Day Forecast</option>
+        <option value="5">5-Day Forecast</option>
+    </select>
+    <div class="weatherDisplay">
+        <div class="header"><strong>Current</strong></div>
+        <div class="header"><strong>Tomorrow</strong></div>
+        <div class="header"><strong>Next Day</strong></div>
+        <div class="weather"></div>
+    </div>
+    <div id="forMap">
+        <div id="map"></div>
+    </div>
+
+</main>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA12FJ0Fsb0QXncRWVWlF1M2UIPTn0VB8"></script>
+<script>
+    $("document").ready(function() {
+        var markers = [];
+        var geoLat = 29.4241;
+        var geoLon = -98.4936;
+        update();
+        var map = new google.maps.Map(document.getElementById("map"), {
+            center: {lat: geoLat, lng: geoLon},
+            zoom: 5
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            clickMarker(event.latLng, map);
+            map.setCenter({lat: geoLat, lng: geoLon});
+            geoLat = event.latLng.lat();
+            geoLon = event.latLng.lng();
+        });
+        $("#daysNumber").on("change", update);
+        function clickMarker(location, map) {
+            clearMarkers();
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                icon: 'IMG/weather-sun.png'
+            });
+            markers.push(marker);
+            var geocoder = new google.maps.Geocoder();
+            geoLat = location.lat();
+            geoLon = location.lng();
+            // $("#latitude").val(geoLat.toFixed(3));
+            // $("#longitude").val(geoLon.toFixed(3));
+            update(geoLat, geoLon);
+            // $("#latitude").val("");
+            // $("#longitude").val("");
+        }
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+        function update() {
+            // var latitude = 29.4241;
+            // var longitude = -98.4936;
+            // if ($("#latitude").val() !== "" && $("#longitude").val() !== "") {
+            //     latitude = $("#latitude").val();
+            //     longitude = $("#longitude").val();
+            // }
+            $.get("http://api.openweathermap.org/data/2.5/forecast", {
+                APPID: "7c66dda135d5bd2e458cb66254bd830b",
+                lat: geoLat,
+                lon: geoLon,
+                units: "imperial"
+            }).done(function (weather) {
+                console.log(weather);
+                var html = "";
+                var city = "";
+                for (var i = 0; i < $("#daysNumber").val()*8; i += 8) {
+                    var weatherGif = "";
+                    switch(weather.list[i].weather[0].description){
+                        case "sky is clear":
+                            weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
+                            break;
+                        case "clear sky":
+                            weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
+                            break;
+                        case "few clouds":
+                            weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
+                            break;
+                        case "scattered clouds":
+                            weatherGif = "https://media.giphy.com/media/1iPwXyVKrKf0dNmM/giphy.gif";
+                            break;
+                        case "broken clouds":
+                            weatherGif = "https://media.giphy.com/media/3ohhwsupwJyzktdgS4/giphy.gif";
+                            break;
+                        case "light rain":
+                            weatherGif = "https://media.giphy.com/media/88wGX2Yfl6Z7q/giphy.gif";
+                            break;
+                        case "rain":
+                            weatherGif = "https://media.giphy.com/media/1tt1PaVgsvlYs/giphy.gif";
+                            break;
+                        case "moderate rain":
+                            weatherGif = "https://media.giphy.com/media/EEFEyXLO9E0YE/giphy.gif";
+                            break;
+                        case "heavy intensity rain":
+                            weatherGif = "https://media.giphy.com/media/VBx2As74m5k0U/giphy.gif";
+                            break;
+                        case "thunderstorm":
+                            weatherGif = "https://media.giphy.com/media/3ohhwHGift6jATwg4o/giphy.gif";
+                            break;
+                        case "snow":
+                            weatherGif = "https://media.giphy.com/media/h5SbEEFpDs84U/giphy.gif";
+                            break;
+                        case "light snow":
+                            weatherGif = "https://media.giphy.com/media/7tYNMJ29GcbE4/giphy.gif";
+                            break;
+                        case "heavy snow":
+                            weatherGif = "https://media.giphy.com/media/oiqK7WB2J76uc/giphy.gif";
+                            break;
+                        case "overcast clouds":
+                            weatherGif = "https://media.giphy.com/media/Zjj86hg7vHeve/giphy.gif";
+                            break;
+                    }
+
+                    html += "<div class='day'><h3>" + Math.round(weather.list[i].main.temp_max) + "°/" + Math.round(weather.list[i].main.temp_min) + "°" + "</h3>";
+                    //html += "<img src='http://openweathermap.org/img/w/" + weather.list[i].weather[0].icon + ".png'>";
+                    html += "<img class='gifSize' src='" + weatherGif + "'>";
+                    html += "<p>" + weather.list[i].weather[0].main + ": " + weather.list[i].weather[0].description + "</p>";
+                    html += "<p>Humidity: " + weather.list[i].main.humidity + "%</p>";
+                    html += "<p>Wind: " + Math.round(weather.list[i].wind.speed) + "</p>";
+                    html += "<p>Pressure: " + Math.round(weather.list[i].main.pressure) + "</p></div>";
+                }
+                if (weather.city.name) {
+                    city = weather.city.name;
+                } else {
+                    city = "Somewhere in the World";
+                }
+                $(".city").html(city);
+                $(".weather").html(html);
+            }).fail(function () {
+                $(".city").html("No such place!");
+                $(".weather").html("<p>Please try a different location.</p>");
+            });
+        }
+        // $("#latlon").click(function (event) {
+        //     event.preventDefault();
+        //     update();
+        //     $("#latitude").val("");
+        //     $("#longitude").val("");
+        // });
+    });
+
+</script>
+</body>
+</html>
