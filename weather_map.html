@@ -28,7 +28,8 @@
             display: inline;
         }
         p {
-            line-height: 0.3472222222222222vw;
+            line-height: 1;
+            margin: .5vw
         }
         .city {
             display: block;
@@ -38,7 +39,7 @@
             height: 2.2222222222222223vw;
             background: #e5e5e5;
             font-size: 1.1111111111111112vw;
-            border-radius: 10%;
+            border-radius: 5px;
             float: right;
             font-family: 'Anonymous Pro', monospace;
         }
@@ -60,20 +61,23 @@
             margin: 0 auto;
         }
         .day {
-            height: 17.36111111111111vw;
+            height: 18.5vw;
             background: #C0DDEF;
             text-align: center;
             border: 1px solid black;
             color: #182038;
+            border-radius: 5px;
+            margin: 0 .3vw;
         }
         .header {
             background: #182038;
-            height: 1.3888888888888888vw;
+            height: 1.5vw;
             text-align: center;
             border: 1px solid black;
             color: #F8ECE8;
-            padding-top: 0.2777777777777778vw;
-            margin-top: 0.6944444444444444vw;
+            padding: .5vw;
+            margin: 0.6944444444444444vw .3vw;
+            border-radius: 5px;
         }
         .weather {
             display: flex;
@@ -127,8 +131,8 @@
                 height: 30vw;
             }
             .header {
-                height: 3.5vw;
-                padding-top: 2vw;
+                height: 2.5vw;
+                padding-top: .5vw;
                 margin-top: 2vw;
                 font-size: 2vw;
             }
@@ -181,6 +185,7 @@
                 height: 5vw;
                 padding-top: 2vw;
                 margin-top: 2vw;
+                font-size: 3.8vw;
             }
             .weather {
                 display: block;
@@ -289,6 +294,9 @@
                             weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
                             break;
                         case "few clouds":
+                            weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
+                            break;
+                        case "overcast clouds":
                             weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
                             break;
                         case "scattered clouds":
