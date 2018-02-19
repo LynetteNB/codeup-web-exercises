@@ -270,12 +270,20 @@
 <script>
     $("document").ready(function() {
         var markers = [];
-        var geoLat = 29.4241;
-        var geoLon = -98.4936;
-        update();
+        var geoLat = 40.7128;
+        var geoLon = -74.0060;
+        $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?').done( function(data) {
+            geoLat = Number(data.geoplugin_latitude);
+            geoLon = Number(data.geoplugin_longitude);
+            map.setCenter({lat: geoLat, lng: geoLon});
+            update();
+        }).fail(function(){
+            geoLat = 40.7128;
+            geoLon = -74.0060;
+        });
         var map = new google.maps.Map(document.getElementById("map"), {
             center: {lat: geoLat, lng: geoLon},
-            zoom: 5
+            zoom: 10
         });
         google.maps.event.addListener(map, 'click', function (event) {
             clickMarker(event.latLng, map);
@@ -291,12 +299,11 @@
                 icon: 'IMG/weather-sun.png'
             });
             markers.push(marker);
-            var geocoder = new google.maps.Geocoder();
             geoLat = location.lat();
             geoLon = location.lng();
             // $("#latitude").val(geoLat.toFixed(3));
             // $("#longitude").val(geoLon.toFixed(3));
-            update(geoLat, geoLon);
+            update();
             // $("#latitude").val("");
             // $("#longitude").val("");
         }
@@ -322,6 +329,7 @@
                 units: "imperial"
             }).done(function (weather) {
                 console.log(weather);
+                console.log(geoLat + " " + geoLon);
                 var html = "";
                 var htmlheaders = "";
                 var city = "";
