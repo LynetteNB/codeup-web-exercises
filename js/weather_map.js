@@ -99,7 +99,6 @@
                     } else if (weather.list[i].weather[0].icon === "50d" || weather.list[i].weather[0].icon === "50n") {
                         weatherGif = "https://media.giphy.com/media/xEjTM5COAKyNa/giphy.gif";
                     }
-                    console.log(weather.list[i].weather[0].icon);
                     if (i === 0) {
                         htmlheaders += "<div class='header'>Current</div>";
                         html += "<div class='headerSmall header'>Current</div>";
