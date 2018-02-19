@@ -276,6 +276,7 @@
         var markers = [];
         var geoLat = 40.7128;
         var geoLon = -74.0060;
+        var infoWindow = new google.maps.InfoWindow({content: ""});
         $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?').done( function(data) {
             geoLat = Number(data.geoplugin_latitude);
             geoLon = Number(data.geoplugin_longitude);
@@ -302,9 +303,16 @@
                 map: map,
                 icon: 'IMG/weather-sun.png'
             });
+            marker.addListener("mouseover", function() {
+                infoWindow.open(map, marker);
+            });
+            marker.addListener("mouseout", function() {
+                infoWindow.close();
+            });
             markers.push(marker);
             geoLat = location.lat();
             geoLon = location.lng();
+
             // $("#latitude").val(geoLat.toFixed(3));
             // $("#longitude").val(geoLon.toFixed(3));
             update();
@@ -441,6 +449,7 @@
                     }
                     html += "</div></div>";
                     if(i === 0){
+                        infoWindow = new google.maps.InfoWindow({content: "<h3 class='header'>Current Weather</h3><div><h3>" +  Math.round(weather.list[i].main.temp) + "°F</h3><p>" + weather.list[i].weather[0].main + ": " + weather.list[i].weather[0].description + "</p><p>Humidity: " + Math.round(weather.list[i].main.humidity) + "%</p>"});
                         i = counter-8;
                     }
                 }
