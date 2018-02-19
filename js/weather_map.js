@@ -18,12 +18,34 @@
             zoom: 10
         });
         google.maps.event.addListener(map, 'click', function (event) {
+            map.setCenter(event.latLng);
             geoLat = event.latLng.lat();
             geoLon = event.latLng.lng();
             clickMarker(event.latLng, map);
         });
         $("#daysNumber").on("change", update);
         $(".checkboxes").on("click", update);
+        $("#address").on("keypress", function(e){
+           if(e.keyCode === 13){
+               geoCode();
+           }
+        });
+        function geoCode() {
+            var geocoder = new google.maps.Geocoder();
+            var geoAddress = $("#address").val();
+            geocoder.geocode({"address": geoAddress}, function (results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(8);
+                    geoLat = results[0].geometry.location.lat();
+                    geoLon = results[0].geometry.location.lng();
+                    clickMarker(results[0].geometry.location, map);
+                    $("#address").val("");
+                } else {
+                    alert("That is an invalid address. Please enter a different address.")
+                }
+            });
+        }
         function clickMarker(location, map) {
             clearMarkers();
             var marker = new google.maps.Marker({
@@ -31,11 +53,11 @@
                 map: map,
                 icon: 'IMG/weather-sun.png'
             });
-            markers.push(marker);
             update();
             marker.addListener("mouseover", function(){
                 infoWindow.open(map, marker);
             });
+            markers.push(marker);
         }
         function clearMarkers() {
             setMapOnAll(null);
@@ -141,7 +163,8 @@
                     city = weather.city.name;
                 } else {
                     city = "Somewhere in the World";
-                }infoWindow = new google.maps.InfoWindow({content: "<h3 class='header'>" + city + "</h3><div><h3>" +  Math.round(weather.list[0].main.temp) + "°F</h3><p>" + weather.list[0].weather[0].main + ": " + weather.list[0].weather[0].description + "</p><p>Humidity: " + Math.round(weather.list[0].main.humidity) + "%</p>"});
+                }
+                infoWindow = new google.maps.InfoWindow({content: "<h3 class='header'>" + city + "</h3><div><h3>" +  Math.round(weather.list[0].main.temp) + "°F</h3><p>" + weather.list[0].weather[0].main + ": " + weather.list[0].weather[0].description + "</p><p>Humidity: " + Math.round(weather.list[0].main.humidity) + "%</p>"});
                 $(".city").html(city);
                 $(".headers").html(htmlheaders);
                 $(".weather").html(html);
