@@ -80,62 +80,26 @@
                     var weatherGif = "";
                     var daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     var tempMin, tempMax, humidity, wind, pressure;
-                    switch(weather.list[i].weather[0].icon){
-                        case "01d":
-                            weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
-                            break;
-                        case "02d":
-                            weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
-                            break;
-                        case "03d":
-                            weatherGif = "https://media.giphy.com/media/1iPwXyVKrKf0dNmM/giphy.gif";
-                            break;
-                        case "04d":
-                            weatherGif = "https://media.giphy.com/media/3ohhwsupwJyzktdgS4/giphy.gif";
-                            break;
-                        case "09d":
-                            weatherGif = "https://media.giphy.com/media/EEFEyXLO9E0YE/giphy.gif";
-                            break;
-                        case "10d":
-                            weatherGif = "https://media.giphy.com/media/88wGX2Yfl6Z7q/giphy.gif";
-                            break;
-                        case "11d":
-                            weatherGif = "https://media.giphy.com/media/3ohhwHGift6jATwg4o/giphy.gif";
-                            break;
-                        case "13d":
-                            weatherGif = "https://media.giphy.com/media/oiqK7WB2J76uc/giphy.gif";
-                            break;
-                        case "50d":
-                            weatherGif = "https://media.giphy.com/media/xEjTM5COAKyNa/giphy.gif";
-                            break;
-                        case "01n":
-                            weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
-                            break;
-                        case "02n":
-                            weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
-                            break;
-                        case "03n":
-                            weatherGif = "https://media.giphy.com/media/1iPwXyVKrKf0dNmM/giphy.gif";
-                            break;
-                        case "04n":
-                            weatherGif = "https://media.giphy.com/media/3ohhwsupwJyzktdgS4/giphy.gif";
-                            break;
-                        case "09n":
-                            weatherGif = "https://media.giphy.com/media/EEFEyXLO9E0YE/giphy.gif";
-                            break;
-                        case "10n":
-                            weatherGif = "https://media.giphy.com/media/88wGX2Yfl6Z7q/giphy.gif";
-                            break;
-                        case "11n":
-                            weatherGif = "https://media.giphy.com/media/3ohhwHGift6jATwg4o/giphy.gif";
-                            break;
-                        case "13n":
-                            weatherGif = "https://media.giphy.com/media/oiqK7WB2J76uc/giphy.gif";
-                            break;
-                        case "50n":
-                            weatherGif = "https://media.giphy.com/media/xEjTM5COAKyNa/giphy.gif";
-                            break;
+                    if(weather.list[i].weather[0].icon === "01d" ||weather.list[i].weather[0].icon === "01n") {
+                        weatherGif = "https://media.giphy.com/media/kZLVxluTyw32U/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "02d" || weather.list[i].weather[0].icon === "02n") {
+                        weatherGif = "https://media.giphy.com/media/3ov9jLYWb4zCjGfqIE/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "03d" || weather.list[i].weather[0].icon === "03n") {
+                        weatherGif = "https://media.giphy.com/media/1iPwXyVKrKf0dNmM/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "04d" || weather.list[i].weather[0].icon === "04n") {
+                        weatherGif = "https://media.giphy.com/media/3ohhwsupwJyzktdgS4/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "09d" || weather.list[i].weather[0].icon === "09n") {
+                        weatherGif = "https://media.giphy.com/media/EEFEyXLO9E0YE/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "10d" || weather.list[i].weather[0].icon === "10n") {
+                        weatherGif = "https://media.giphy.com/media/88wGX2Yfl6Z7q/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "11d" || weather.list[i].weather[0].icon === "11n") {
+                        weatherGif = "https://media.giphy.com/media/3ohhwHGift6jATwg4o/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "13d" || weather.list[i].weather[0].icon === "13n") {
+                        weatherGif = "https://media.giphy.com/media/3o6gDS7g6M4WpszMhq/giphy.gif";
+                    } else if (weather.list[i].weather[0].icon === "50d" || weather.list[i].weather[0].icon === "50n") {
+                        weatherGif = "https://media.giphy.com/media/xEjTM5COAKyNa/giphy.gif";
                     }
+                    console.log(weather.list[i].weather[0].icon);
                     if (i === 0) {
                         htmlheaders += "<div class='header'>Current</div>";
                         html += "<div class='headerSmall header'>Current</div>";
