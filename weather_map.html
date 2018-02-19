@@ -276,21 +276,23 @@
         var markers = [];
         var geoLat = 40.7128;
         var geoLon = -74.0060;
-        var infoWindow = new google.maps.InfoWindow({content: ""});
         $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?').done( function(data) {
             geoLat = Number(data.geoplugin_latitude);
             geoLon = Number(data.geoplugin_longitude);
             map.setCenter({lat: geoLat, lng: geoLon});
-            update();
+            clickMarker({lat: geoLat, lng: geoLon}, map);
         }).fail(function(){
             geoLat = 40.7128;
             geoLon = -74.0060;
         });
+        var infoWindow = new google.maps.InfoWindow({content: ""});
         var map = new google.maps.Map(document.getElementById("map"), {
             center: {lat: geoLat, lng: geoLon},
             zoom: 10
         });
         google.maps.event.addListener(map, 'click', function (event) {
+            geoLat = event.latLng.lat();
+            geoLon = event.latLng.lng();
             clickMarker(event.latLng, map);
             //map.setCenter({lat: geoLat, lng: geoLon});
         });
@@ -303,19 +305,13 @@
                 map: map,
                 icon: 'IMG/weather-sun.png'
             });
-            marker.addListener("mouseover", function() {
-                infoWindow.open(map, marker);
-            });
-            marker.addListener("mouseout", function() {
-                infoWindow.close();
-            });
             markers.push(marker);
-            geoLat = location.lat();
-            geoLon = location.lng();
-
             // $("#latitude").val(geoLat.toFixed(3));
             // $("#longitude").val(geoLon.toFixed(3));
             update();
+            marker.addListener("mouseover", function(){
+                infoWindow.open(map, marker);
+            });
             // $("#latitude").val("");
             // $("#longitude").val("");
         }
@@ -351,6 +347,7 @@
                 var pressureArray = [];
                 var dateArray = [];
                 var counter = 0;
+                console.log(infoWindow);
                 weather.list.forEach(function(temp){
                     var date = new Date((temp.dt * 1000)-21600);
                     dateArray.push(date.getDay());
@@ -449,7 +446,6 @@
                     }
                     html += "</div></div>";
                     if(i === 0){
-                        infoWindow = new google.maps.InfoWindow({content: "<h3 class='header'>Current Weather</h3><div><h3>" +  Math.round(weather.list[i].main.temp) + "°F</h3><p>" + weather.list[i].weather[0].main + ": " + weather.list[i].weather[0].description + "</p><p>Humidity: " + Math.round(weather.list[i].main.humidity) + "%</p>"});
                         i = counter-8;
                     }
                 }
@@ -457,7 +453,7 @@
                     city = weather.city.name;
                 } else {
                     city = "Somewhere in the World";
-                }
+                }infoWindow = new google.maps.InfoWindow({content: "<h3 class='header'>" + city + "</h3><div><h3>" +  Math.round(weather.list[0].main.temp) + "°F</h3><p>" + weather.list[0].weather[0].main + ": " + weather.list[0].weather[0].description + "</p><p>Humidity: " + Math.round(weather.list[0].main.humidity) + "%</p>"});
                 $(".city").html(city);
                 $(".headers").html(htmlheaders);
                 $(".weather").html(html);
