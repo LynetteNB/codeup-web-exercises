@@ -335,7 +335,7 @@
                         counter++;
                     }
                 }
-                for (var i = 0; i < $("#daysNumber").val()*8; i += 8) {
+                for (var i = 0; i < ($("#daysNumber").val()-1)*8; i += 8) {
                     var weatherGif = "";
                     var daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     var tempMin, tempMax, humidity, wind, pressure;
@@ -416,6 +416,9 @@
                         html += "<p>Pressure: " + Math.round(pressure) + " hPa</p>";
                     }
                     html += "</div></div>"
+                    if(i === 0){
+                        i = counter-8;
+                    }
                 }
                 if (weather.city.name) {
                     city = weather.city.name;
@@ -425,9 +428,6 @@
                 $(".city").html(city);
                 $(".headers").html(htmlheaders);
                 $(".weather").html(html);
-                if(i === 0){
-                    i = counter+1-8;
-                }
             }).fail(function () {
                 $(".city").html("No such place!");
                 $(".weather").html("<p>Please try a different location.</p>");
