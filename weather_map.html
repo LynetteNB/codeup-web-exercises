@@ -19,6 +19,7 @@
             width: 80%;
             margin: 0 auto;
             text-align: center;
+            background: #e5e5e5;
         }
         h1 {
             text-align: center;
@@ -51,9 +52,8 @@
             background: #C0DDEF;
             color: #182038;
         }
-        .weatherDisplay {
-            text-align: center;
-            width: 100%;
+        .checkboxes {
+            text-align: right;
         }
         .top {
             background: black;
@@ -64,29 +64,39 @@
             width: 80%;
             margin: 0 auto;
         }
-        .day {
-            height: 18.5vw;
-            background: #C0DDEF;
+        .headers {
             text-align: center;
-            border: 1px solid black;
-            color: #182038;
-            border-radius: 5px;
-            margin: 0 .3vw;
+            width: 100%;
+            height: auto;
+            display: flex;
         }
         .header {
             background: #182038;
-            height: 1.5vw;
+            height: auto;
             text-align: center;
             border: 1px solid black;
             color: #F8ECE8;
             padding: .5vw;
             margin: 0.6944444444444444vw .3vw;
             border-radius: 5px;
+            flex: 1;
         }
         .weather {
             display: flex;
             height: auto;
             clear: right;
+        }
+        .day {
+            background: #C0DDEF;
+            text-align: center;
+            border: 1px solid black;
+            color: #182038;
+            border-radius: 5px;
+            margin: 0 .3vw;
+            flex: 1;
+        }
+        .day h3 {
+            margin: .75vw 0;
         }
         .gifSize {
             height: 5.208333333333333vw;
@@ -97,6 +107,7 @@
             border: 3px solid #182038;
             border-radius: 5px;
             margin-bottom: 3vw;
+            box-sizing: border-box;
         }
         #logo {
             height: 2.0833333333333335vw;
@@ -137,7 +148,7 @@
                 height: 10vw;
             }
             .day {
-                height: 30vw;
+                height: 32vw;
             }
             .header {
                 height: 2.5vw;
@@ -157,7 +168,7 @@
                 font-size: 4vw;
             }
             main {
-                width: 98%;
+                width: 95%;
             }
             h1 {
                 font-size: 6.8vw;
@@ -225,10 +236,18 @@
             <option value="4">4-Day Forecast</option>
             <option value="5">5-Day Forecast</option>
         </select>
+        <div class="checkboxes">
+            <label><input type="checkbox" id="iconShow" name="description" checked>Icon</label>
+            <label><input type="checkbox" id="descriptionShow" name="description" checked>Description</label>
+            <label><input type="checkbox" id="humidityShow" name="description" checked>Humidity</label>
+            <label><input type="checkbox" id="windShow" name="description" checked>Wind</label>
+            <label><input type="checkbox" id="pressureShow" name="description" checked>Pressure</label>
+        </div>
     </div>
 </div>
 <main>
     <h1 class="city"></h1>
+    <div class="headers"></div>
     <div class="weather"></div>
     <p class="instruct">Click on the map for the weather!</p>
     <div id="map"></div>
@@ -252,6 +271,7 @@
             //map.setCenter({lat: geoLat, lng: geoLon});
         });
         $("#daysNumber").on("change", update);
+        $(".checkboxes").on("click", update);
         function clickMarker(location, map) {
             clearMarkers();
             var marker = new google.maps.Marker({
@@ -292,11 +312,33 @@
             }).done(function (weather) {
                 console.log(weather);
                 var html = "";
+                var htmlheaders = "";
                 var city = "";
+                var tempMaxArray = [];
+                var tempMinArray = [];
+                var humidityArray = [];
+                var windArray = [];
+                var pressureArray = [];
+                var dateArray = [];
+                var counter = 0;
+                weather.list.forEach(function(temp){
+                    var date = new Date((temp.dt * 1000)-21600);
+                    dateArray.push(date.getDay());
+                    tempMaxArray.push(Math.round(temp.main.temp_max));
+                    tempMinArray.push(Math.round(temp.main.temp_min));
+                    humidityArray.push(temp.main.humidity);
+                    windArray.push(temp.wind.speed);
+                    pressureArray.push(temp.main.grnd_level);
+                });
+                for(var l = 0; l <dateArray.length; l++){
+                    if(dateArray[0] === dateArray[l]){
+                        counter++;
+                    }
+                }
                 for (var i = 0; i < $("#daysNumber").val()*8; i += 8) {
                     var weatherGif = "";
-                    var date = new Date(weather.list[i].dt * 1000);
                     var daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                    var tempMin, tempMax, humidity, wind, pressure;
                     switch(weather.list[i].weather[0].description){
                         case "sky is clear":
                             weatherGif = "https://media.giphy.com/media/Az9wuw2NHfNzG/giphy.gif";
@@ -342,17 +384,38 @@
                             break;
                     }
                     if (i === 0) {
-                        html += "<div class='weatherDisplay'><div class='header'><strong>Today</strong></div>";
+                        htmlheaders += "<div class='header'>Current</div>";
+                        tempMax = Math.max(...tempMaxArray.slice(i, counter));
+                        tempMin = Math.min(...tempMinArray.slice(i, counter));
+                        humidity = humidityArray.slice(i, counter).reduce((a,b) => a+b)/counter;
+                        wind = windArray.slice(i, counter).reduce((a,b) => a+b)/counter;
+                        pressure = pressureArray.slice(i, counter).reduce((a,b) => a+b)/counter;
                     } else {
-                        html += "<div class='weatherDisplay'><div class='header'><strong>" + daysArray[date.getDay()] + "</strong></div>";
+                        htmlheaders += "<div class='header'>" + daysArray[dateArray[i]] + "</div>";
+                        tempMax = Math.max(...tempMaxArray.slice(i, i+8));
+                        tempMin = Math.min(...tempMinArray.slice(i, i+8));
+                        humidity = humidityArray.slice(i, i+8).reduce((a,b) => a+b)/8;
+                        wind = windArray.slice(i, i+8).reduce((a,b) => a+b)/8;
+                        pressure = pressureArray.slice(i, i+8).reduce((a,b) => a+b)/8;
                     }
-                    html += "<div class='day'><h3>" + Math.round(weather.list[i].main.temp_max) + "°/" + Math.round(weather.list[i].main.temp_min) + "°F" + "</h3>";
+                    html += "<div class='day'><h3>" + tempMax + "°/" + tempMin + "°F" + "</h3>";
                     //html += "<img src='http://openweathermap.org/img/w/" + weather.list[i].weather[0].icon + ".png'>";
-                    html += "<img class='gifSize' src='" + weatherGif + "'>";
-                    html += "<p>" + weather.list[i].weather[0].main + ": " + weather.list[i].weather[0].description + "</p>";
-                    html += "<p>Humidity: " + weather.list[i].main.humidity + "%</p>";
-                    html += "<p>Wind: " + Math.round(weather.list[i].wind.speed) + "</p>";
-                    html += "<p>Pressure: " + Math.round(weather.list[i].main.pressure) + "</p></div></div>";
+                    if($("#iconShow").prop('checked')) {
+                        html += "<img class='gifSize' src='" + weatherGif + "'>";
+                    }
+                    if($("#descriptionShow").prop('checked')) {
+                        html += "<p>" + weather.list[i].weather[0].main + ": " + weather.list[i].weather[0].description + "</p>";
+                    }
+                    if($("#humidityShow").prop('checked')) {
+                        html += "<p>Humidity: " + Math.round(humidity) + "%</p>";
+                    }
+                    if($("#windShow").prop('checked')) {
+                        html += "<p>Wind: " + Math.round(wind) + " mph</p>";
+                    }
+                    if($("#pressureShow").prop('checked')) {
+                        html += "<p>Pressure: " + Math.round(pressure) + " hPa</p>";
+                    }
+                    html += "</div></div>"
                 }
                 if (weather.city.name) {
                     city = weather.city.name;
@@ -360,7 +423,11 @@
                     city = "Somewhere in the World";
                 }
                 $(".city").html(city);
+                $(".headers").html(htmlheaders);
                 $(".weather").html(html);
+                if(i === 0){
+                    i = counter+1-8;
+                }
             }).fail(function () {
                 $(".city").html("No such place!");
                 $(".weather").html("<p>Please try a different location.</p>");
