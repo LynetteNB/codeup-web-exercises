@@ -81,6 +81,9 @@
             border-radius: 5px;
             flex: 1;
         }
+        .headerSmall {
+            display: none;
+        }
         .weather {
             display: flex;
             height: auto;
@@ -141,14 +144,14 @@
             .inner {
                 width: 90%;
             }
+            .checkboxes {
+                margin: 1.5vw 0;
+            }
             .instruct {
                 margin: 2vw;
             }
             .gifSize {
                 height: 10vw;
-            }
-            .day {
-                height: 32vw;
             }
             .header {
                 height: 2.5vw;
@@ -198,17 +201,25 @@
                 height: 20vw;
             }
             .day {
-                height: 50vw;
+                flex: 0;
+                margin: 2vw 0;
             }
             .instruct {
                 margin: 3.5vw;
             }
-
-            .header {
-                height: 5vw;
-                padding-top: 2vw;
-                margin-top: 2vw;
-                font-size: 3.8vw;
+            .checkboxes{
+                text-align: center;
+            }
+            .checkboxes label {
+                display: block;
+            }
+            .headers {
+                display: none;
+            }
+            .headerSmall {
+                display: block;
+                font-size: 4vw;
+                height: auto;
             }
             .weather {
                 display: block;
@@ -335,7 +346,7 @@
                         counter++;
                     }
                 }
-                for (var i = 0; i < ($("#daysNumber").val()-1)*8; i += 8) {
+                for (var i = 0; i <= (($("#daysNumber").val()-1)*8); i += 8) {
                     var weatherGif = "";
                     var daysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     var tempMin, tempMax, humidity, wind, pressure;
@@ -385,6 +396,7 @@
                     }
                     if (i === 0) {
                         htmlheaders += "<div class='header'>Current</div>";
+                        html += "<div class='headerSmall header'>Current</div>";
                         tempMax = Math.max(...tempMaxArray.slice(i, counter));
                         tempMin = Math.min(...tempMinArray.slice(i, counter));
                         humidity = humidityArray.slice(i, counter).reduce((a,b) => a+b)/counter;
@@ -392,6 +404,7 @@
                         pressure = pressureArray.slice(i, counter).reduce((a,b) => a+b)/counter;
                     } else {
                         htmlheaders += "<div class='header'>" + daysArray[dateArray[i]] + "</div>";
+                        html += "<div class='headerSmall header'>" + daysArray[dateArray[i]] + "</div>";
                         tempMax = Math.max(...tempMaxArray.slice(i, i+8));
                         tempMin = Math.min(...tempMinArray.slice(i, i+8));
                         humidity = humidityArray.slice(i, i+8).reduce((a,b) => a+b)/8;
@@ -415,7 +428,7 @@
                     if($("#pressureShow").prop('checked')) {
                         html += "<p>Pressure: " + Math.round(pressure) + " hPa</p>";
                     }
-                    html += "</div></div>"
+                    html += "</div></div>";
                     if(i === 0){
                         i = counter-8;
                     }
