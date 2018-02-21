@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Simon</title>
+    <style>
+        .block {
+            width: 150px;
+            height: 150px;
+        }
+        .red {
+            background: red;
+        }
+        .blue {
+            background: blue;
+        }
+        .yellow {
+            background: yellow;
+        }
+        .green {
+            background: green;
+        }
+        .muteRed {
+            background: #D97273;
+        }
+        .muteBlue {
+            background: #9acfea;
+        }
+        .muteYellow {
+            background: khaki;
+        }
+        .muteGreen {
+            background: #6CA559;
+        }
+        #game{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<div id="game">
+    <div class="block muteRed" id="red"></div>
+    <div class="block muteBlue" id="blue"></div>
+    <div class="block muteYellow" id="yellow"></div>
+    <div class="block muteGreen" id="green"></div>
+</div>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script>
+let colorsArray = ["blue", "yellow", "green", "red"];
+let simonArray = [];
+let simonCheck = [];
+let red = $("#red");
+let blue = $("#blue");
+let green = $("#green");
+let yellow = $("#yellow");
+
+// let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
+// red.mouseup(() => {
+//     simonCheck.push("red");
+//     red.toggleClass("muteRed red");
+//     checkSimon();
+// });
+// blue.mouseup(() => {
+//     simonCheck.push("blue");
+//     blue.toggleClass("muteBlue blue");
+//     checkSimon();
+// });
+// yellow.mouseup(() => {
+//     simonCheck.push("yellow");
+//     yellow.toggleClass("muteYellow yellow");
+//     checkSimon();
+// });
+// green.mouseup(() => {
+//     simonCheck.push("green");
+//     green.toggleClass("muteGreen green");
+//     checkSimon();
+// });
+// red.mousedown(() => red.toggleClass("muteRed red"));
+// blue.mousedown(() => blue.toggleClass("muteBlue blue"));
+// yellow.mousedown(() => yellow.toggleClass("muteYellow yellow"));
+// green.mousedown(() => green.toggleClass("muteGreen green"));
+
+let simonGame = (color) => {
+        switch (color) {
+            case "red":
+                setTimeout(() => red.toggleClass("muteRed red"),1000);
+                red.toggleClass("muteRed red");
+                break;
+            case "blue":
+                setTimeout(() => blue.toggleClass("muteBlue blue"),1000);
+                blue.toggleClass("muteBlue blue");
+                break;
+            case "yellow":
+                setTimeout(() => yellow.toggleClass("muteYellow yellow"),1000);
+                yellow.toggleClass("muteYellow yellow");
+                break;
+            case "green":
+                setTimeout(() => green.toggleClass("muteGreen green"),1000);
+                green.toggleClass("muteGreen green");
+                break;
+        }
+
+};
+let array = ["red", "green", "blue"];
+setTimeout(simonGame(array[0]), 3000);
+// let checkSimon = () => {
+//     let randomColor = "";
+//     if (simonArray.length === 0){
+//         randomColor = getRandomColor();
+//         simonArray.push(randomColor);
+//         simonGame();
+//     }
+//     for(let i = 0; i < simonCheck.length; i++) {
+//         console.log(`clicked: ${simonCheck}
+//         simon: ${simonArray}`);
+//         if(simonCheck[i] !== simonArray[i]){
+//             console.log("GAME OVER");
+//             red.off();
+//             yellow.off();
+//             blue.off();
+//             green.off();
+//             break;
+//         }
+//         if((simonCheck[i] === simonArray[i] && simonCheck.length === simonArray.length)){
+//             simonCheck = [];
+//             randomColor = getRandomColor();
+//             simonArray.push(randomColor);
+//             simonGame();
+//             console.log("correct");
+//         }
+//     }
+// };
+// checkSimon();
+
+</script>
+</body>
+</html>
