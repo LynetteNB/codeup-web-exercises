@@ -10,6 +10,33 @@
         .block {
             width: 150px;
             height: 150px;
+            margin: 10px;
+            overflow: hidden;
+        }
+        .top, .bottom {
+            display: flex;
+            justify-content: center;
+        }
+        .topRight {
+            border-top-right-radius: 100%;
+        }
+        .topLeft{
+            border-top-left-radius: 100%;
+        }
+        .bottomLeft{
+            border-bottom-left-radius: 100%;
+        }
+        .bottomRight{
+            border-bottom-right-radius: 100%;
+        }
+        .circle {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: white;
+            bottom: 99px;
+            left: 374px;
         }
         .red {
             background: red;
@@ -36,17 +63,25 @@
             background: #6CA559;
         }
         #game{
-            display: flex;
+            position: relative;
         }
     </style>
 </head>
 <body>
 <div id="game">
-    <div class="block muteRed" id="red"></div>
-    <div class="block muteBlue" id="blue"></div>
-    <div class="block muteYellow" id="yellow"></div>
-    <div class="block muteGreen" id="green"></div>
+    <div class="top">
+        <div class="block muteRed topLeft" id="red"></div>
+        <div class="block muteBlue topRight" id="blue"></div>
+    </div>
+    <div class="circle"></div>
+    <div class="bottom">
+        <div class="block muteYellow bottomLeft" id="yellow"></div>
+        <div class="block muteGreen bottomRight" id="green"></div>
+    </div>
 </div>
+<div id="html"></div>
+<button>Play Again?</button>
+
 
 <script src="js/jquery-2.2.4.js"></script>
 <script>
@@ -57,6 +92,7 @@ let red = $("#red");
 let blue = $("#blue");
 let green = $("#green");
 let yellow = $("#yellow");
+$("button").hide();
 
 let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
 red.mouseup(() => {
@@ -88,7 +124,7 @@ let simonGame = (color) => {
 
         switch (color) {
             case "red":
-                setTimeout(() => red.addClass("muteRed red"),500);
+                setTimeout(() => red.toggleClass("muteRed red"),500);
                 red.toggleClass("muteRed red");
                 break;
             case "blue":
@@ -128,7 +164,8 @@ let checkSimon = () => {
         console.log(`clicked: ${simonCheck}
         simon: ${simonArray}`);
         if(simonCheck[i] !== simonArray[i]){
-            console.log("GAME OVER");
+            $("#html").text("Game Over!");
+            $("button").show();
             red.off();
             yellow.off();
             blue.off();
