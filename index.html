@@ -58,83 +58,92 @@ let blue = $("#blue");
 let green = $("#green");
 let yellow = $("#yellow");
 
-// let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
-// red.mouseup(() => {
-//     simonCheck.push("red");
-//     red.toggleClass("muteRed red");
-//     checkSimon();
-// });
-// blue.mouseup(() => {
-//     simonCheck.push("blue");
-//     blue.toggleClass("muteBlue blue");
-//     checkSimon();
-// });
-// yellow.mouseup(() => {
-//     simonCheck.push("yellow");
-//     yellow.toggleClass("muteYellow yellow");
-//     checkSimon();
-// });
-// green.mouseup(() => {
-//     simonCheck.push("green");
-//     green.toggleClass("muteGreen green");
-//     checkSimon();
-// });
-// red.mousedown(() => red.toggleClass("muteRed red"));
-// blue.mousedown(() => blue.toggleClass("muteBlue blue"));
-// yellow.mousedown(() => yellow.toggleClass("muteYellow yellow"));
-// green.mousedown(() => green.toggleClass("muteGreen green"));
+let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
+red.mouseup(() => {
+    simonCheck.push("red");
+    red.toggleClass("muteRed red");
+    checkSimon();
+});
+blue.mouseup(() => {
+    simonCheck.push("blue");
+    blue.toggleClass("muteBlue blue");
+    checkSimon();
+});
+yellow.mouseup(() => {
+    simonCheck.push("yellow");
+    yellow.toggleClass("muteYellow yellow");
+    checkSimon();
+});
+green.mouseup(() => {
+    simonCheck.push("green");
+    green.toggleClass("muteGreen green");
+    checkSimon();
+});
+red.mousedown(() => red.toggleClass("muteRed red"));
+blue.mousedown(() => blue.toggleClass("muteBlue blue"));
+yellow.mousedown(() => yellow.toggleClass("muteYellow yellow"));
+green.mousedown(() => green.toggleClass("muteGreen green"));
 
 let simonGame = (color) => {
+
         switch (color) {
             case "red":
-                setTimeout(() => red.toggleClass("muteRed red"),1000);
+                setTimeout(() => red.addClass("muteRed red"),500);
                 red.toggleClass("muteRed red");
                 break;
             case "blue":
-                setTimeout(() => blue.toggleClass("muteBlue blue"),1000);
+                setTimeout(() => blue.toggleClass("muteBlue blue"),500);
                 blue.toggleClass("muteBlue blue");
                 break;
             case "yellow":
-                setTimeout(() => yellow.toggleClass("muteYellow yellow"),1000);
+                setTimeout(() => yellow.toggleClass("muteYellow yellow"),500);
                 yellow.toggleClass("muteYellow yellow");
                 break;
             case "green":
-                setTimeout(() => green.toggleClass("muteGreen green"),1000);
+                setTimeout(() => green.toggleClass("muteGreen green"),500);
                 green.toggleClass("muteGreen green");
                 break;
         }
 
 };
-let array = ["red", "green", "blue"];
-setTimeout(simonGame(array[0]), 3000);
-// let checkSimon = () => {
-//     let randomColor = "";
-//     if (simonArray.length === 0){
-//         randomColor = getRandomColor();
-//         simonArray.push(randomColor);
-//         simonGame();
-//     }
-//     for(let i = 0; i < simonCheck.length; i++) {
-//         console.log(`clicked: ${simonCheck}
-//         simon: ${simonArray}`);
-//         if(simonCheck[i] !== simonArray[i]){
-//             console.log("GAME OVER");
-//             red.off();
-//             yellow.off();
-//             blue.off();
-//             green.off();
-//             break;
-//         }
-//         if((simonCheck[i] === simonArray[i] && simonCheck.length === simonArray.length)){
-//             simonCheck = [];
-//             randomColor = getRandomColor();
-//             simonArray.push(randomColor);
-//             simonGame();
-//             console.log("correct");
-//         }
-//     }
-// };
-// checkSimon();
+let showSimonArray = () => {
+    let i = 0;
+    let timer = setInterval(function(){
+        simonGame(simonArray[i]);
+        i++;
+        if (i >= simonArray.length) {
+            clearInterval(timer);
+        }
+    }, 1000)
+};
+
+let checkSimon = () => {
+    let randomColor = "";
+    if (simonArray.length === 0){
+        randomColor = getRandomColor();
+        simonArray.push(randomColor);
+        showSimonArray();
+    }
+    for(let i = 0; i < simonCheck.length; i++) {
+        console.log(`clicked: ${simonCheck}
+        simon: ${simonArray}`);
+        if(simonCheck[i] !== simonArray[i]){
+            console.log("GAME OVER");
+            red.off();
+            yellow.off();
+            blue.off();
+            green.off();
+            break;
+        }
+        if((simonCheck[i] === simonArray[i] && simonCheck.length === simonArray.length)){
+            simonCheck = [];
+            randomColor = getRandomColor();
+            simonArray.push(randomColor);
+            showSimonArray();
+        }
+    }
+};
+checkSimon();
 
 </script>
 </body>
