@@ -1,7 +1,7 @@
 let wait = (time) => {
     return myPromise = new Promise ((resolve, reject) => {
         setTimeout(() => {
-                resolve();
+                resolve(`Your promise will resolve after ${time/1000} second(s).`);
             }, time)});
 };
 
