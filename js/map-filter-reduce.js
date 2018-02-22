@@ -31,19 +31,11 @@ const users = [
     },
 ];
 
-users.filter(user => {
-   if(user.languages.length >= 3){
-       return user;
-   }
-});
-users.map(user => user.email);
-
-
-
-users.reduce((object, user) => {
-    let {id, name, email, languages} = user;
-    object[id] = {name, email, languages};
-    return object;
+users.filter(({ languages }) => languages.length >= 3 ? {} : false);
+users.map(({ email }) => email);
+users.reduce((accum, { id, name, email, languages }) => {
+    accum[id] = {name, email, languages};
+    return accum;
 }, {});
 
 
@@ -76,94 +68,101 @@ fruits.map(fruit => fruit[0]);
 
 // PROBLEM 2 - create array of user objects based on the customers array
 // of objects (each user object should just have name and age properties)
-customers.map(customer => {
-   return {name: customer.name, age: customer.age};
+customers.map(({ name, age }) => {
+   return {name, age};
 });
 
 // PROBLEM 3 - create an array of civil servant customers (teachers and police officers)
 // containing the same properties as the objects on the customers objects
-customers.filter(customer => {
-    if (customer.occupation === "Teacher" || customer.occupation === "Police Officer"){
-        return customer;
-    }
-}).map(customer => {
-    return {name: customer.name, age: customer.age};
-});
+customers.filter(({ occupation }) => occupation === "Teacher" || occupation === "Police Officer").map(({ name, age }) => {return {name, age}});
 
 // PROBLEM 4 - determine the average age of customers
 
-let averageAge = customers.reduce((total, customer) => {
-    total += customer.age;
+let averageAge = customers.reduce((total, { age }) => {
+    total += age;
     return total;
 }, 0)/customers.length;
 
 
-
-
-
-
-
-
-
-
-//            PROBLEM 1 HINT - use .map()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            PROBLEM 2 HINT - use .map()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            PROBLEM 3 HINT - use .filter()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            PROBLEM 4 HINT - use .reduce()
-
+// Given the following array...
+const names = ["John", "Max", "Ronald"];
+// complete the bonuses below...
+// - Create an array where all names are given a last name of Smith.
+names.map(name => `${name} Smith`);
+// - Create an array where each word is in all caps
+names.map(name => name.toUpperCase());
+// - Create an array where all names have more than 3 letters
+names.filter(name => {
+   if(name.length > 3){
+       return name;
+   }
+});
+// - Create an array of names with only the last two letters of each name
+names.map(name => name[name.length-2] + name[name.length-1]);
+// - Create a total count of all letters
+names.reduce((total, name) => {
+    total += name.length;
+    return total;
+}, 0);
+// - Create a string of all letters in alphabetical order
+names.reduce((string, name) =>{
+    string += name.toLowerCase();
+    return string.split("").sort().join("");
+}, "");
+// - Create an array of word objects with properties of wordLength, firstLetter, lastLetter
+names.map((name) =>{
+    return {name: name, wordLength: name.length, firstLetter: name[0], lastLetter: name[name.length-1]}
+});
+// - Create a string of all vowels in the entire array of names
+names.reduce(name => {
+
+});
+// - Create a single object with properties
+
+
+// Given the following array...
+const family = [
+    {
+        name: "Karen",
+        gender: "female",
+        age: 29,
+    },
+    {
+        name: "Summer",
+        gender: "female",
+        age: 10,
+    },
+    {
+        name: "Bob",
+        gender: "male",
+        age: 32,
+    },
+];
+// complete the bonuses below...
+// - Calculate the average age of family members
+// - Create an array of family objects without the age property
+// - Create an array of all minors
+// - Calculate the total age combined of family members
+// - Create an array of only female family member objects
+// - Create a single object with properties containing arrays of all names, genders, and ages
+family.reduce((object, { name, gender, age }) => {
+    if(typeof object["names"] === "undefined"){
+        object["names"] = [];
+    }
+    if(typeof object["genders"] === "undefined"){
+        object["genders"] = [];
+    }
+    if(typeof object["ages"] === "undefined"){
+        object["ages"] = [];
+    }
+    object["names"].push(name);
+    object["genders"].push(gender);
+    object["ages"].push(age);
+   return object;
+}, {});
+//output same as above
+let familyObj = {
+    names: family.map(({ name }) => name),
+    genders: family.map(({ gender }) => gender),
+    ages: family.map(({ age }) => age)
+};
