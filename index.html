@@ -6,7 +6,30 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simon Says</title>
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Ubuntu" rel="stylesheet">
     <style>
+        body{
+            background: black;
+            color: white;
+        }
+        h1 {
+            font-family: 'Ubuntu', sans-serif;
+            text-align: center;
+            font-size: 4vw;
+            margin: 1.5vw 0;
+        }
+        button {
+            height: 3vw;
+            font-size: 2vw;
+            border-radius: 5px;
+            margin: 1vw;
+            font-family: 'Anonymous Pro', monospace;
+        }
+        button:hover {
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
         .block {
             width: 16.64816870144284vw;
             height: 16.64816870144284vw;
@@ -34,7 +57,7 @@
             width: 15.538290788013319vw;
             height: 15.538290788013319vw;
             border-radius: 50%;
-            background: white;
+            background: black;
             bottom: 10.987791342952276vw;
             left: 41.6vw;
         }
@@ -70,23 +93,28 @@
         }
         #html {
             font-size: 4vw;
+            font-family: 'Anonymous Pro', monospace;
+            position: absolute;
+            bottom: 16.85vw;
+            left: 48.2vw;
         }
     </style>
 </head>
 <body>
+<h1>Simon Says</h1>
 <div id="game">
     <div class="top">
         <div class="block muteRed topLeft" id="red"></div>
         <div class="block muteBlue topRight" id="blue"></div>
     </div>
     <div class="circle"></div>
+    <div id="html"></div>
     <div class="bottom">
         <div class="block muteYellow bottomLeft" id="yellow"></div>
         <div class="block muteGreen bottomRight" id="green"></div>
     </div>
 </div>
 <div id="gameOver">
-<div id="html"></div>
 <button>Play Again?</button>
 </div>
 <audio id="redSound" preload="auto" src="IMG/beep-02.mp3"></audio>
@@ -108,71 +136,62 @@ let yellow = $("#yellow");
 $("button").hide();
 
 let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
+let upClickety = (color) => {
+    simonCheck.push(color);
+    $(`#${color}`).toggleClass(`mute${color[0].toUpperCase()}${color.substring(1, color.length)} ${color}`);
+    $(`#${color}Sound`)[0].play();
+    checkSimon();
+};
 let clicks = () => {
-    red.mouseup(() => {
-        simonCheck.push("red");
-        red.toggleClass("muteRed red");
-        $("#redSound")[0].play();
-        checkSimon();
-    });
-    blue.mouseup(() => {
-        simonCheck.push("blue");
-        blue.toggleClass("muteBlue blue");
-        $("#blueSound")[0].play();
-        checkSimon();
-    });
-    yellow.mouseup(() => {
-        simonCheck.push("yellow");
-        yellow.toggleClass("muteYellow yellow");
-        $("#yellowSound")[0].play();
-        checkSimon();
-    });
-    green.mouseup(() => {
-        simonCheck.push("green");
-        green.toggleClass("muteGreen green");
-        $("#greenSound")[0].play();
-        checkSimon();
-    });
     red.mousedown(() => red.toggleClass("muteRed red"));
     blue.mousedown(() => blue.toggleClass("muteBlue blue"));
     yellow.mousedown(() => yellow.toggleClass("muteYellow yellow"));
     green.mousedown(() => green.toggleClass("muteGreen green"));
+    red.mouseup(() => upClickety("red"));
+    blue.mouseup(() => upClickety("blue"));
+    yellow.mouseup(() => upClickety("yellow"));
+    green.mouseup(() => upClickety("green"));
 };
-
+let offClicks = () => {
+    red.off();
+    yellow.off();
+    blue.off();
+    green.off();
+};
+let startGame = () => {
+    randomColor = getRandomColor();
+    simonArray.push(randomColor);
+    $("#html").css("left", "48.2vw").text(counter);
+    showSimonArray();
+    counter++;
+};
+let colorChange = color => {
+    setTimeout(() => $(`#${color}`).toggleClass(`mute${color[0].toUpperCase()}${color.substring(1, color.length)} ${color}`),400);
+    $(`#${color}Sound`)[0].play();
+    $(`#${color}`).toggleClass(`mute${color[0].toUpperCase()}${color.substring(1, color.length)} ${color}`);
+};
 let simonGame = (color) => {
 
         switch (color) {
             case "red":
-                setTimeout(() => red.toggleClass("muteRed red"),400);
-                $("#redSound")[0].play();
-                red.toggleClass("muteRed red");
+                colorChange(color);
                 break;
             case "blue":
-                setTimeout(() => blue.toggleClass("muteBlue blue"),400);
-                $("#blueSound")[0].play();
-                blue.toggleClass("muteBlue blue");
+                colorChange(color);
                 break;
             case "yellow":
-                setTimeout(() => yellow.toggleClass("muteYellow yellow"),400);
-                $("#yellowSound")[0].play();
-                yellow.toggleClass("muteYellow yellow");
+                colorChange(color);
                 break;
             case "green":
-                setTimeout(() => green.toggleClass("muteGreen green"),400);
-                $("#greenSound")[0].play();
-                green.toggleClass("muteGreen green");
+                colorChange(color);
                 break;
         }
-
 };
 let showSimonArray = () => {
     let i = 0;
     let timer = setInterval(function(){
         simonGame(simonArray[i]);
-        red.off();
-        yellow.off();
-        blue.off();
-        green.off();
+        offClicks();
         i++;
         if (i >= simonArray.length) {
             clearInterval(timer);
@@ -180,34 +199,22 @@ let showSimonArray = () => {
         }
     }, 700);
 };
-
 let checkSimon = () => {
     let randomColor = "";
     if (simonArray.length === 0){
-        randomColor = getRandomColor();
-        simonArray.push(randomColor);
-        $("#html").text(counter);
-        showSimonArray();
-        counter++;
+        startGame();
     }
     for(let i = 0; i < simonCheck.length; i++) {
         if(simonCheck[i] !== simonArray[i]){
-            $("#html").text("Game Over!");
+            $("#html").css("left", "40.2vw").text("Game Over!");
             $("button").show();
             $("#lose")[0].play();
-            red.off();
-            yellow.off();
-            blue.off();
-            green.off();
+            offClicks();
             break;
         }
         if((simonCheck[simonCheck.length-1] === simonArray[simonArray.length-1] && simonCheck.length === simonArray.length)){
-            $("#html").text(counter);
             simonCheck = [];
-            randomColor = getRandomColor();
-            simonArray.push(randomColor);
-            showSimonArray();
-            counter++;
+            startGame();
         }
     }
 };
