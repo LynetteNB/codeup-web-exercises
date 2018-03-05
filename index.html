@@ -58,7 +58,7 @@
             height: 15.538290788013319vw;
             border-radius: 50%;
             background: black;
-            bottom: 10.987791342952276vw;
+            top: 10.987791342952276vw;
             left: 41.6vw;
         }
         .red {
@@ -91,11 +91,26 @@
         #gameOver {
             text-align: center;
         }
+        .overAnimation {
+            background: url("IMG/simon-game-over.png");
+            background-size: 211vw 38.5vw;
+            position: absolute;
+            width: 42.2vw;
+            height: 40vw;
+            top: -.5vw;
+            left: 28vw;
+            animation:over 1s steps(5, end);
+            animation-fill-mode: forwards;
+        }
+        @keyframes over {
+            0%{background-position: 0 -.5vw;}
+            100%{background-position: -211vw;}
+        }
         #html {
             font-size: 4vw;
             font-family: 'Anonymous Pro', monospace;
             position: absolute;
-            bottom: 16.85vw;
+            top: 16.85vw;
             left: 48.2vw;
         }
     </style>
@@ -113,15 +128,16 @@
         <div class="block muteYellow bottomLeft" id="yellow"></div>
         <div class="block muteGreen bottomRight" id="green"></div>
     </div>
-</div>
-<div id="gameOver">
-<button>Play Again?</button>
+    <div id="gameOver">
+        <button>Play Again?</button>
+    </div>
+    <div id="overAnimation"></div>
 </div>
 <audio id="redSound" preload="auto" src="IMG/beep-02.mp3"></audio>
 <audio src="IMG/beep-07.mp3" id="blueSound" preload="auto"></audio>
 <audio src="IMG/beep-03.mp3" id="greenSound" preload="auto"></audio>
 <audio src="IMG/beep-08b.mp3" id="yellowSound" preload="auto"></audio>
-<audio src="IMG/You-lose-sound-effect.mp3" id="lose" preload="auto"></audio>
+<audio src="IMG/Pacman-death-sound/Pacman-death-sound.mp3" id="lose" preload="auto"></audio>
 
 <script src="js/jquery-2.2.4.js"></script>
 <script>
@@ -134,6 +150,7 @@ let blue = $("#blue");
 let green = $("#green");
 let yellow = $("#yellow");
 $("button").hide();
+$("#overAnimation").hide();
 
 let getRandomColor = () => colorsArray[Math.floor((Math.random()*4))];
 let upClickety = (color) => {
@@ -159,6 +176,7 @@ let offClicks = () => {
     green.off();
 };
 let startGame = () => {
+    $(".top, .bottom").show();
     randomColor = getRandomColor();
     simonArray.push(randomColor);
     $("#html").text(counter);
@@ -219,8 +237,11 @@ let checkSimon = () => {
     }
     for(let i = 0; i < simonCheck.length; i++) {
         if(simonCheck[i] !== simonArray[i]){
-            $("#html").css("left", "40.2vw").text("Game Over!");
-            $("button").show();
+            $("#html").hide().css("left", "40.2vw").fadeIn(2750).text("Game Over!");
+            $("button").fadeIn(2750);
+            $(".top, .bottom").hide();
+            $("#overAnimation").show().addClass("overAnimation");
+            setTimeout(() => {$("#overAnimation").hide();}, 900);
             $("#lose")[0].play();
             offClicks();
             break;
