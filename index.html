@@ -6,14 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simon Says</title>
-    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Ubuntu|VT323" rel="stylesheet">
     <style>
         body{
             background: black;
             color: white;
         }
         h1 {
-            font-family: 'Ubuntu', sans-serif;
+            font-family: 'VT323', monospace;
             text-align: center;
             font-size: 4vw;
             margin: 1.5vw 0;
@@ -23,7 +23,7 @@
             font-size: 2vw;
             border-radius: 5px;
             margin: 1vw;
-            font-family: 'Anonymous Pro', monospace;
+            font-family: 'VT323', monospace;
         }
         button:hover {
             background: black;
@@ -88,9 +88,6 @@
         #game{
             position: relative;
         }
-        #gameOver {
-            text-align: center;
-        }
         .overAnimation {
             background: url("IMG/simon-game-over.png");
             background-size: 211vw 38.5vw;
@@ -107,11 +104,12 @@
             100%{background-position: -211vw;}
         }
         #html {
-            font-size: 4vw;
-            font-family: 'Anonymous Pro', monospace;
+            font-size: 6vw;
+            font-family: 'VT323', monospace;
             position: absolute;
-            top: 16.85vw;
+            top: 14.85vw;
             left: 48.2vw;
+            text-align: center;
         }
     </style>
 </head>
@@ -127,9 +125,6 @@
     <div class="bottom">
         <div class="block muteYellow bottomLeft" id="yellow"></div>
         <div class="block muteGreen bottomRight" id="green"></div>
-    </div>
-    <div id="gameOver">
-        <button>Play Again?</button>
     </div>
     <div id="overAnimation"></div>
 </div>
@@ -237,10 +232,17 @@ let checkSimon = () => {
     }
     for(let i = 0; i < simonCheck.length; i++) {
         if(simonCheck[i] !== simonArray[i]){
-            $("#html").hide().css("left", "40.2vw").fadeIn(2750).text("Game Over!");
-            $("button").fadeIn(2750);
-            $(".top, .bottom").hide();
+            $("#html").hide().css("left", "37.2vw").fadeIn(3000).html("Game Over!<br><button>Play Again?</button>");
+            $("button").click(() => {
+                simonCheck = [];
+                simonArray = [];
+                $("button").hide();
+                $("#html").text("Game Over!");
+                counter = 0;
+                checkSimon();
+            });
             $("#overAnimation").show().addClass("overAnimation");
+            setTimeout(() => {$(".top, .bottom").hide();}, 10);
             setTimeout(() => {$("#overAnimation").hide();}, 900);
             $("#lose")[0].play();
             offClicks();
@@ -253,14 +255,7 @@ let checkSimon = () => {
     }
 };
 checkSimon();
-$("button").click(() => {
-    simonCheck = [];
-    simonArray = [];
-    $("button").hide();
-    $("#html").text("Game Over!");
-    counter = 0;
-    checkSimon();
-});
+
 
 </script>
 </body>
